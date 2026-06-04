@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!129 &1
+PlayerSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 24
+  productGUID: a1b2c3d4e5f6789012345678abcdef01
+  AndroidProfiler: 0
+  AndroidFilterTouchesWhenObscured: 0
+  AndroidEnableSustainedPerformanceMode: 0
+  defaultScreenOrientation: 1
+  targetDevice: 2
+  useOnDemandResources: 0
+  accelerometerFrequency: 60
+  companyName: WeiJinRoad
+  productName: "\u672A\u5C3D\u4E4B\u8DEF"
+  defaultCursor: {fileID: 0}
+  cursorHotspot: {x: 0, y: 0}
+  m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
+  m_ShowUnitySplashScreen: 1
+  m_ShowUnitySplashLogo: 1
+  m_SplashScreenOverlayOpacity: 1
+  m_SplashScreenAnimation: 1
+  m_SplashScreenLogoStyle: 1
+  m_SplashScreenDrawMode: 0
+  m_SplashScreenBackgroundAnimationZoom: 1
+  m_SplashScreenLogoAnimationZoom: 1
+  m_SplashScreenBackgroundLandscapeAspect: 1
+  m_SplashScreenBackgroundPortraitAspect: 1
+  m_SplashScreenBackgroundLandscapeZoom: 1
+  m_SplashScreenBackgroundPortraitZoom: 1
+  m_SplashScreenFadeDuration: 0.5
+  m_SplashScreenLogoFadeInDuration: 2
+  m_SplashScreenLogoFadeOutDuration: 2
+  m_SplashScreenLogos: []
+  m_SplashScreenBackgroundLandscape: {fileID: 0}
+  m_SplashScreenBackgroundPortrait: {fileID: 0}
+  m_VirtualRealitySplashScreen: {fileID: 0}
+  m_HolographicTrackingLossScreen: {fileID: 0}
+  defaultScreenWidth: 1920
+  defaultScreenHeight: 1080
+  defaultScreenWidthWeb: 960
+  defaultScreenHeightWeb: 600
+  m_StereoRenderingPath: 0
+  m_ActiveColorSpace: 1
+  m_MTRendering: 1
+  mipStripping: 0
+  numberOfMipsStripped: 0
+  m_ShaderStrippingMode: 0
+  m_ShaderVariantLogLevel: 0
+  m_StripShaderVariants: 1
+  m_IPAConfigStripping: 0
+  m_StripUnusedMeshComponents: 1
+  strictShaderVariantMatching: 0
+  m_ScriptingRuntimeVersion: 1
+  m_Il2CppCodeGeneration: 0
+  m_Il2CppCompilationConfiguration: 0
+  m_GraphicsJobMode: 0
+  m_GraphicsJobs: 1
+  m_ScriptingBackend: 1
+  m_IL2CPPCompilerConfiguration: 0
+  m_PlayerDataStripping: 1
+  m_ManagedStrippingLevel: 1
+  m_Il2CppStrippingLevel: 1
+  m_StripEngineCode: 1
+  m_StripInputSystemSupport: 0
+  m_EnableRoslynAnalyzers: 1
+  m_AutoStreamingSettings: 0
+  m_ScriptingDefineSymbols:
+    1: 
+    4: 
+    7: 
+    14: 
+    21: 
+    28: 
+    29: 
+    30: 
+    32: 
+    33: 
+    34: 
+    35: 
+  m_ScriptingDefineSymbolsAreInitialized: 1
+  m_AdditionalCompilerArguments: {}
+  m_ApiCompatibilityLevel: 3
+  m_ActiveInputHandler: 1
+  m_SpritePackerMode: 0
+  m_SpritePackerPaddingPower: 1
+  m_BundlerDefaultCompression: 1
+  m_DefaultGraphicsAPIs:
+  - 3
+  - 2
+  m_StaticBatching: 1
+  m_DynamicBatching: 0
+  m_GPUInstancing: 1
+  m_SRPBatcher: 1
+  m_ColorSpace: 1
+  m_LightmapEncodingQuality: 1
+  m_LightmapStreaming: 0
+  bundleVersion: 0.1
+  preloadedAssets: []
+  metroInputSource: 0
+  wsaTransparentSwapchain: 0
+  m_HolographicPauseOnTrackingLoss: 1
+  xboxOneDisableKinectGpuReservation: 1
+  xboxOneEnable7thCore: 1
+  vrSettings:
+    enable360StereoCapture: 0
+  isWsaHolographicRemotingEnabled: 0
+  enableFrameTimingStats: 0
+  allowFullscreenSwitch: 1
+  fullscreenMode: 1
+  m_SupportedAspectRatios:
+    4:3: 1
+    5:4: 1
+    16:10: 1
+    16:9: 1
+    others: 1
+  m_AutomaticStreamingAssets: 0
+UNITYEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-416c6475ffd74087b58b439bb8f09e4c/cwd.txt'; exit "$__tr_native_ec"
