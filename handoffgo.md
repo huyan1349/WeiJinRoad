@@ -1,90 +1,22 @@
-# Handoff 文档
+# Handoff - 场景装饰与特效系统翻译
 
-## 已完成任务
-- 将 Zustand store (store.ts) 完整迁移为 Unity C# 游戏状态管理系统
-- 创建 GameManager.cs (1692行) — 单例MonoBehaviour，持有所有游戏状态和逻辑
-- 创建 SaveSystem.cs (242行) — JSON存档系统，含自动存档
-- 创建 GameEvents.cs (262行) — 静态事件系统，22个事件
-- PR已合并到main: https://github.com/huyan1349/WeiJinRoad/pull/1
+## 已完成
+1. **SceneryElements.cs** (`Assets/Scripts/World/`) - 16种地标程序化几何体（FireLookoutTower/AbandonedOutpost/ScienceTent/PickupTruck/WarningSign/HighwayVillageSign/IceArchMonument/LanternVillagePlaza/SnowBeaconLighthouse/SummitObservatory/RidgeSignalPylon/AFrameCabin/AbandonedCompactCar/Bollard/PowerPole）+ DrawMeshInstanced树木/岩石/草丛/枯树/石堆 + 电线系统（LineRenderer悬链线）
+2. **SnowSystem.cs** (`Assets/Scripts/Effects/`) - 7600粒子降雪，跟随相机，风力影响，GameManager密度控制
+3. **FogSystem.cs** (`Assets/Scripts/Effects/`) - 2000粒子低空雾气，Additive混合，噪声飘动
+4. **EnvironmentLighting.cs** (`Assets/Scripts/World/`) - 16关键帧日夜循环，太阳/月亮轨道，冬季冷色调偏移
+5. **PostProcessingController.cs** (`Assets/Scripts/Effects/`) - URP Volume：Bloom/Vignette/ColorGrading(ACES)/DOF/FilmGrain
 
-## 迁移覆盖范围
-- 所有枚举: ResourceKind, FrontAttachment, PartId, FacilityType, AchievementCategory, TerrainRenderMode, HeadlightsMode
-- 所有数据结构: ResourceBag, PartState, NearbyResource, JournalEntry, Achievement, StationState, BuiltCamp, CampSite, JourneyNotification, PerfStats, DevTeleportTarget, VehicleTransientState, SaveData, StationEntry
-- 所有持久化状态: resources, maxCarry, frontAttachment, vehicleParts, clearedObstacles, pickedResources, currentJourney, stations, builtCamps, achievements, purchasedItems, discoveredFragmentIds, journal, currentChapter, townVisited
-- 所有运行时状态: timeOfDay, isSnowing, brightness, dev面板开关, 相机参数, 提灯, 扎营, 交互等
-- 所有游戏逻辑: CanAfford, AddResources, SpendResources, RepairPart, UpgradePart, BuildFacility, ClearObstacle, PickupResource, DiscoverFragment, UnlockAchievement等
+## 依赖
+- `WeiJinRoad.Core.GameManager` (IsSnowing/DevSnow/DevFog/DevBloom/DevLights/DevPostProcessing/DevGodView/TimeOfDay/Brightness/NoiseIntensity)
+- `WeiJinRoad.World.RoadSpline` + `RoadSplineData` + `RoadConstants`
+- `WeiJinRoad.World.TerrainHeight`
 
-## 未完成/待注意
-- GameManager.AddBuiltCamp() 直接引用 World.TerrainHeight.WorldToRouteZ()，存在Core→World的命名空间依赖，若需解耦可改用事件或接口
-- SaveData 中 List<FacilityType> 的 JsonUtility 序列化可能需要验证（Unity对enum List的序列化支持有限，必要时可改为int列表）
-- 成就定义模板（ACHIEVEMENT_DEFS）尚未迁移为C#数据，目前只迁移了运行时成就状态
-- 站点选址定义（SITE_DEFS）尚未迁移
-ENDOFFILE; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-696ef992ed604e148765ef99b2128795/cwd.txt'; exit "$__tr_native_ec"
----
-
-## 2026-06-05: AudioManager 音频管理器
-
-### 已完成
-- 创建 AudioManager.cs (986行) — 将 WebAudio 程序化音频引擎 (audioEngine.ts) 近似翻译为 Unity AudioSource 系统
-- 命名空间: WeiJinRoad.Audio
-- PR已合并到main: https://github.com/huyan1349/WeiJinRoad/pull/4
-
-### 翻译对照
-| TS 函数 | C# 方法 | 实现方式 |
-|---------|---------|---------|
-| startEngine / updateEngine / stopEngine | StartEngine / UpdateEngine / StopEngine | AudioSource + pitch/volume 曲线 |
-| startWind / setWindIntensity / stopWind | StartWind / UpdateWind / StopWind | AudioSource + volume 曲线 |
-| searchlightOn / searchlightOff | PlaySearchlightOn / PlaySearchlightOff | PlayOneShot |
-| fullIllumination | PlayFullIllumination | PlayOneShot |
-| fragmentDiscover | PlayFragmentDiscover | PlayOneShot + GameEvents订阅 |
-| brake | PlayBrake | PlayOneShot |
-| treeImpact | PlayTreeImpact | PlayOneShot + power参数 |
-| chapterTransition | PlayChapterTransition | PlayOneShot + GameEvents订阅 |
-| lowHum | PlayLowHum | PlayOneShot |
-| heartbeat / stopHeartbeat | StartHeartbeat / StopHeartbeat | 定时器脉冲播放 |
-| menuStart | PlayMenuStart | PlayOneShot |
-| interactClick | PlayUIClick | PlayOneShot + 随机pitch |
-| killAll | KillAll | 全部渐隐停止 |
-
-### 架构特点
-- Singleton + DontDestroyOnLoad
-- 12个 AudioSource 对象池用于一次性音效
-- 订阅 GameEvents (OnFragmentDiscovered, OnGamePhaseChanged, OnObstacleCleared, OnHealthChanged)
-- 三级音量控制: MasterVolume / SFXVolume / BGMVolume
-- 渐入/渐出协程
-- BGM: The_Long_Way_Up.mp3 循环播放
-
-### 未完成/待注意
-- 所有 AudioClip 引用需在 Inspector 中拖入实际音频文件（目前为 null 占位）
-- 引擎/风声的 AudioClip 需要制作或获取（低频隆隆声、噪声、风声循环片段）
-- 原版 WebAudio 的实时合成效果（振荡器频率滑动、滤波器截止频率变化）无法完全用 AudioClip 还原，pitch/volume 曲线仅为近似
-- 心跳音效的BPM与生命值关联逻辑依赖 GameEvents.OnHealthChanged，需确认 VehicleDamageSystem 是否触发该事件
-- SetEngineBoost() 需由 VehicleController 在 Shift 加速时调用
-EOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-56a593cec9ae41738c2564f623d8d10f/cwd.txt'; exit "$__tr_native_ec"
----
-
-## 2026-06-05: SceneBootstrap + SettingsPage
-
-### 已完成
-- 创建 SceneBootstrap.cs (587行) — 主场景启动引导器
-  - Awake: 初始化 GameManager/RoadSpline/SaveSystem，加载存档或新游戏
-  - Start: 创建主相机、方向光（冬季氛围）、TerrainGenerator、载具、环境光照，设置相机跟随
-  - Update: Escape暂停、自动存档计时
-  - FollowCamera: 内嵌相机跟随类，平滑插值位置/旋转
-  - RoadSamplerAdapter: 适配全局RoadSplineData到IRoadSampler接口
-- 创建 SettingsPage.cs (1051行) — 程序化设置UI
-  - 版本号 VER 0.4.0
-  - 图形设置: 阴影质量/后处理/粒子/雪/雾/地形渲染模式
-  - 音频设置: 主音量/音乐/音效
-  - 相机设置: 跟随距离/高度/灵敏度
-  - 开发者工具: 开发模式/FPS/线框/上帝模式
-  - 深色半透明背景、zpix字体、TMP、PlayerPrefs持久化
-- PR #5 已合并到 main
-
-### 未完成/待注意
-- SettingsPage 的 zpix TMP Font Asset 需在 Unity Editor 中生成（Font Asset Creator）
-- 线框模式需要自定义渲染管线支持（当前仅打印日志）
-- FPS 计数器需要实际 UI 组件实现
-- SettingsPage 的音量控制需要与 AudioManager 对接
-- 场景装饰物（树木、岩石等）尚未迁移
-EOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-9dea23b4f5f5443c80791aecbe2a2abc/cwd.txt'; exit "$__tr_native_ec"
+## 未完成/注意事项
+- 地标建筑使用程序化几何体替代GLB模型，视觉效果较简化，后续可替换为真实模型
+- SceneryElements的地标列表需在Inspector中手动配置LandmarkPlacement
+- 材质引用（TreeMaterial/RockMaterial等）需在Inspector中拖入
+- EnvironmentLighting的LightStop数组使用静态初始化，Inspector中可调整
+- PostProcessingController依赖URP包和Volume组件
+- PR #6 已合并到main
+EOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-3d31852aabb94f1b919dc9c02bfad5eb/cwd.txt'; exit "$__tr_native_ec"
