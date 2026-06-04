@@ -61,3 +61,30 @@ ENDOFFILE; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7
 - 心跳音效的BPM与生命值关联逻辑依赖 GameEvents.OnHealthChanged，需确认 VehicleDamageSystem 是否触发该事件
 - SetEngineBoost() 需由 VehicleController 在 Shift 加速时调用
 EOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-56a593cec9ae41738c2564f623d8d10f/cwd.txt'; exit "$__tr_native_ec"
+---
+
+## 2026-06-05: SceneBootstrap + SettingsPage
+
+### 已完成
+- 创建 SceneBootstrap.cs (587行) — 主场景启动引导器
+  - Awake: 初始化 GameManager/RoadSpline/SaveSystem，加载存档或新游戏
+  - Start: 创建主相机、方向光（冬季氛围）、TerrainGenerator、载具、环境光照，设置相机跟随
+  - Update: Escape暂停、自动存档计时
+  - FollowCamera: 内嵌相机跟随类，平滑插值位置/旋转
+  - RoadSamplerAdapter: 适配全局RoadSplineData到IRoadSampler接口
+- 创建 SettingsPage.cs (1051行) — 程序化设置UI
+  - 版本号 VER 0.4.0
+  - 图形设置: 阴影质量/后处理/粒子/雪/雾/地形渲染模式
+  - 音频设置: 主音量/音乐/音效
+  - 相机设置: 跟随距离/高度/灵敏度
+  - 开发者工具: 开发模式/FPS/线框/上帝模式
+  - 深色半透明背景、zpix字体、TMP、PlayerPrefs持久化
+- PR #5 已合并到 main
+
+### 未完成/待注意
+- SettingsPage 的 zpix TMP Font Asset 需在 Unity Editor 中生成（Font Asset Creator）
+- 线框模式需要自定义渲染管线支持（当前仅打印日志）
+- FPS 计数器需要实际 UI 组件实现
+- SettingsPage 的音量控制需要与 AudioManager 对接
+- 场景装饰物（树木、岩石等）尚未迁移
+EOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-9dea23b4f5f5443c80791aecbe2a2abc/cwd.txt'; exit "$__tr_native_ec"
