@@ -1,18 +1,22 @@
-# Handoff - Vehicle System Translation
+# Handoff 文档
 
-## 已完成
-- **VehicleController.cs** (1001行): 驾驶物理、输入(WASD/Arrow/Shift/Space/E)、地形跟随(Y插值+法线对齐)、探照灯系统(双击全照明+冷却)、车灯(前灯/尾灯/刹车灯)、碰撞响应(树/栅栏/障碍)、相机震动、车轮滚动。所有物理常量与TS原版完全一致。
-- **VehicleDamageSystem.cs** (639行): 油耗曲线(怠速/线性/指数)、6部件损耗(engine/tires/headlight/tank/body/radio)、smoothstep性能修正、碰撞方向区分损耗、累加器tick/flush模式、修理/加油逻辑。所有常量与TS原版完全一致。
-- **GameManager.cs** (119行): 最小单例存根，提供TimeOfDay/HeadlightsMode/相机设置/燃油管理接口。
-- 已push到GitHub main分支。
+## 已完成任务
+- 将 Zustand store (store.ts) 完整迁移为 Unity C# 游戏状态管理系统
+- 创建 GameManager.cs (1692行) — 单例MonoBehaviour，持有所有游戏状态和逻辑
+- 创建 SaveSystem.cs (242行) — JSON存档系统，含自动存档
+- 创建 GameEvents.cs (262行) — 静态事件系统，22个事件
+- PR已合并到main: https://github.com/huyan1349/WeiJinRoad/pull/1
 
-## 未完成/需后续处理
-1. **TreeCollisionSystem**: VehicleController中预留了TreeCollisionSystem占位类，实际碰撞检测逻辑需在Collision目录下实现（对应TS的hitTreeColliders/resolveObstacles）
-2. **AudioEngine**: 音效接口预留但未实现（引擎/刹车/碰撞/探照灯音效）
-3. **粒子系统**: ImpactDebris/TreeDust/SnowPlume/TireTracks粒子效果未翻译（需Unity VFX Graph或ParticleSystem实现）
-4. **山顶相机**: 山顶电影镜头逻辑未完整翻译（summit cinematic camera blend）
-5. **交互系统**: E键交互/附近可交互物检测未实现
-6. **成就系统**: checkAchievement/checkLowFuelAchievement未实现
-7. **传送系统**: 传送至灯笼村/开发者传送未实现
-8. **SaveSystem/GameEvents**: Core目录下这两个文件仍为空
-EOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-b05f8976687a41a38e67e6877f5b1afd/cwd.txt'; exit "$__tr_native_ec"
+## 迁移覆盖范围
+- 所有枚举: ResourceKind, FrontAttachment, PartId, FacilityType, AchievementCategory, TerrainRenderMode, HeadlightsMode
+- 所有数据结构: ResourceBag, PartState, NearbyResource, JournalEntry, Achievement, StationState, BuiltCamp, CampSite, JourneyNotification, PerfStats, DevTeleportTarget, VehicleTransientState, SaveData, StationEntry
+- 所有持久化状态: resources, maxCarry, frontAttachment, vehicleParts, clearedObstacles, pickedResources, currentJourney, stations, builtCamps, achievements, purchasedItems, discoveredFragmentIds, journal, currentChapter, townVisited
+- 所有运行时状态: timeOfDay, isSnowing, brightness, dev面板开关, 相机参数, 提灯, 扎营, 交互等
+- 所有游戏逻辑: CanAfford, AddResources, SpendResources, RepairPart, UpgradePart, BuildFacility, ClearObstacle, PickupResource, DiscoverFragment, UnlockAchievement等
+
+## 未完成/待注意
+- GameManager.AddBuiltCamp() 直接引用 World.TerrainHeight.WorldToRouteZ()，存在Core→World的命名空间依赖，若需解耦可改用事件或接口
+- SaveData 中 List<FacilityType> 的 JsonUtility 序列化可能需要验证（Unity对enum List的序列化支持有限，必要时可改为int列表）
+- 成就定义模板（ACHIEVEMENT_DEFS）尚未迁移为C#数据，目前只迁移了运行时成就状态
+- 站点选址定义（SITE_DEFS）尚未迁移
+ENDOFFILE; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-696ef992ed604e148765ef99b2128795/cwd.txt'; exit "$__tr_native_ec"
