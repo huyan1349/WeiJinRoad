@@ -20,3 +20,44 @@
 - 成就定义模板（ACHIEVEMENT_DEFS）尚未迁移为C#数据，目前只迁移了运行时成就状态
 - 站点选址定义（SITE_DEFS）尚未迁移
 ENDOFFILE; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-696ef992ed604e148765ef99b2128795/cwd.txt'; exit "$__tr_native_ec"
+---
+
+## 2026-06-05: AudioManager 音频管理器
+
+### 已完成
+- 创建 AudioManager.cs (986行) — 将 WebAudio 程序化音频引擎 (audioEngine.ts) 近似翻译为 Unity AudioSource 系统
+- 命名空间: WeiJinRoad.Audio
+- PR已合并到main: https://github.com/huyan1349/WeiJinRoad/pull/4
+
+### 翻译对照
+| TS 函数 | C# 方法 | 实现方式 |
+|---------|---------|---------|
+| startEngine / updateEngine / stopEngine | StartEngine / UpdateEngine / StopEngine | AudioSource + pitch/volume 曲线 |
+| startWind / setWindIntensity / stopWind | StartWind / UpdateWind / StopWind | AudioSource + volume 曲线 |
+| searchlightOn / searchlightOff | PlaySearchlightOn / PlaySearchlightOff | PlayOneShot |
+| fullIllumination | PlayFullIllumination | PlayOneShot |
+| fragmentDiscover | PlayFragmentDiscover | PlayOneShot + GameEvents订阅 |
+| brake | PlayBrake | PlayOneShot |
+| treeImpact | PlayTreeImpact | PlayOneShot + power参数 |
+| chapterTransition | PlayChapterTransition | PlayOneShot + GameEvents订阅 |
+| lowHum | PlayLowHum | PlayOneShot |
+| heartbeat / stopHeartbeat | StartHeartbeat / StopHeartbeat | 定时器脉冲播放 |
+| menuStart | PlayMenuStart | PlayOneShot |
+| interactClick | PlayUIClick | PlayOneShot + 随机pitch |
+| killAll | KillAll | 全部渐隐停止 |
+
+### 架构特点
+- Singleton + DontDestroyOnLoad
+- 12个 AudioSource 对象池用于一次性音效
+- 订阅 GameEvents (OnFragmentDiscovered, OnGamePhaseChanged, OnObstacleCleared, OnHealthChanged)
+- 三级音量控制: MasterVolume / SFXVolume / BGMVolume
+- 渐入/渐出协程
+- BGM: The_Long_Way_Up.mp3 循环播放
+
+### 未完成/待注意
+- 所有 AudioClip 引用需在 Inspector 中拖入实际音频文件（目前为 null 占位）
+- 引擎/风声的 AudioClip 需要制作或获取（低频隆隆声、噪声、风声循环片段）
+- 原版 WebAudio 的实时合成效果（振荡器频率滑动、滤波器截止频率变化）无法完全用 AudioClip 还原，pitch/volume 曲线仅为近似
+- 心跳音效的BPM与生命值关联逻辑依赖 GameEvents.OnHealthChanged，需确认 VehicleDamageSystem 是否触发该事件
+- SetEngineBoost() 需由 VehicleController 在 Shift 加速时调用
+EOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-56a593cec9ae41738c2564f623d8d10f/cwd.txt'; exit "$__tr_native_ec"
