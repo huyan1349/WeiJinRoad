@@ -106,6 +106,20 @@ namespace WeiJinRoad.Core
         Corridor
     }
 
+
+    /// <summary>
+    /// 游戏阶段：菜单、游戏中、暂停
+    /// </summary>
+    public enum GamePhase
+    {
+        /// <summary>主菜单</summary>
+        Menu,
+        /// <summary>游戏中</summary>
+        Playing,
+        /// <summary>暂停</summary>
+        Paused
+    }
+
     /// <summary>
     /// 车灯模式：自动、常开、关闭
     /// </summary>
@@ -571,8 +585,12 @@ namespace WeiJinRoad.Core
         // 运行时状态（不持久化）
         // =============================================================
 
+        [Header("游戏阶段")]
+        [SerializeField] private GamePhase _gamePhase = GamePhase.Menu;
+
         [Header("环境")]
         [SerializeField] private float _timeOfDay = 5f;
+        private float _timeFlowTimer;
         [SerializeField] private bool _isSnowing = true;
         [SerializeField] private float _brightness = 1f;
         [SerializeField] private float _noiseIntensity = 0.02f;
@@ -732,6 +750,15 @@ namespace WeiJinRoad.Core
         {
             get => _currentChapter;
             set => _currentChapter = value;
+        }
+
+        // ─── 游戏阶段 ───
+
+        /// <summary>游戏阶段</summary>
+        public GamePhase Phase
+        {
+            get => _gamePhase;
+            set => _gamePhase = value;
         }
 
         // ─── 环境 ───
@@ -1011,6 +1038,24 @@ namespace WeiJinRoad.Core
         private void Update()
         {
             SaveSystem.AutoSaveCheck();
+            UpdateTimeFlow();
+        }
+
+        /// <summary>
+        /// 时间流动逻辑（对应 React TimeFlow 组件）
+        /// 每250ms增加0.025小时，24小时循环，仅在游戏运行时
+        /// </summary>
+        private void UpdateTimeFlow()
+        {
+            if (_gamePhase != GamePhase.Playing) return;
+
+            _timeFlowTimer += Time.deltaTime * 1000f;
+            if (_timeFlowTimer >= 250f)
+            {
+                _timeFlowTimer -= 250f;
+                _timeOfDay = (_timeOfDay + 0.025f) % 24f;
+                GameEvents.OnTimeOfDayChanged?.Invoke(_timeOfDay);
+            }
         }
 
         // =============================================================
@@ -1039,6 +1084,8 @@ namespace WeiJinRoad.Core
             _townVisited = false;
 
             // 运行时状态
+            _gamePhase = GamePhase.Menu;
+            _timeFlowTimer = 0f;
             _timeOfDay = 5f;
             _isSnowing = true;
             _brightness = 1f;

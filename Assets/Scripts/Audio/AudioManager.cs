@@ -216,6 +216,9 @@ namespace WeiJinRoad.Audio
         private readonly List<AudioSource> _sfxPool = new List<AudioSource>();
         private const int SfxPoolSize = 12;
 
+        // 章节风强度（0~1，由 WindAudio 逻辑控制）
+        private float _windIntensityLevel;
+
         // 引擎参数目标（平滑插值用）
         private float _engineTargetPitch;
         private float _engineTargetRumbleVol;
@@ -255,6 +258,7 @@ namespace WeiJinRoad.Audio
 
         private void Update()
         {
+            UpdateWindByChapter();
             UpdateEngine();
             UpdateWind();
             UpdateHeartbeat();
@@ -465,6 +469,41 @@ namespace WeiJinRoad.Audio
         // =================================================================
 
         /// <summary>
+        /// 根据当前章节更新风力强度（对应 React WindAudio 组件）
+        /// Chapter 3+: windLevel = 0.8
+        /// Chapter 2: windLevel = 0.5
+        /// Chapter 1: windLevel = 0.25
+        /// </summary>
+        private void UpdateWindByChapter()
+        {
+            var gm = GameManager.Instance;
+            if (gm == null) return;
+
+            string chapter = gm.CurrentChapter ?? "ch1";
+            int chapterNumber = 1;
+            var digits = new System.Text.StringBuilder();
+            foreach (char c in chapter)
+            {
+                if (char.IsDigit(c)) digits.Append(c);
+            }
+            if (digits.Length > 0 && !int.TryParse(digits.ToString(), out chapterNumber))
+                chapterNumber = 1;
+
+            float windLevel = chapterNumber >= 3 ? 0.8f : chapterNumber >= 2 ? 0.5f : 0.25f;
+            SetWindIntensity(windLevel);
+        }
+
+        /// <summary>
+        /// 设置风力强度（对应 TS: setWindIntensity）
+        /// 将风力强度映射到风声目标音量范围
+        /// </summary>
+        /// <param name="intensity">风力强度 0~1</param>
+        public void SetWindIntensity(float intensity)
+        {
+            _windIntensityLevel = Mathf.Clamp01(intensity);
+        }
+
+        /// <summary>
         /// 启动风声（对应 TS: startWind）
         ///
         /// 原版使用噪声缓冲区 + 带通滤波器 + LFO 调制。
@@ -497,8 +536,9 @@ namespace WeiJinRoad.Audio
             float maxSpeed = Vehicle.VehicleController.MaxSpeed;
             float ratio = Mathf.Clamp01(speed / maxSpeed);
 
-            // 目标音量：低速0.02 → 高速0.15（模拟原版 0.02→0.06）
-            _windTargetVol = Mathf.Lerp(WindMinVolume, WindMaxVolume, ratio);
+            // 目标音量：低速0.02 → 高速0.15，叠加章节风力强度
+            float speedVol = Mathf.Lerp(WindMinVolume, WindMaxVolume, ratio);
+            _windTargetVol = speedVol * (0.3f + 0.7f * _windIntensityLevel);
 
             if (_windSource != null)
             {
@@ -506,8 +546,8 @@ namespace WeiJinRoad.Audio
                 _windSource.volume = Mathf.Lerp(_windSource.volume,
                     _windTargetVol * SFXVolume * MasterVolume, lerpT);
 
-                // 微调 pitch 模拟原版 LFO 效果
-                _windSource.pitch = Mathf.Lerp(0.9f, 1.15f, ratio);
+                // 微调 pitch 模拟原版 LFO 效果，风力越强 pitch 越高
+                _windSource.pitch = Mathf.Lerp(0.9f, 1.15f, ratio) + _windIntensityLevel * 0.1f;
             }
         }
 
