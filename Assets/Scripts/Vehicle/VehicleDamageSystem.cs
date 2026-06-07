@@ -637,4 +637,3 @@ namespace WeiJinRoad.Vehicle
         }
     }
 }
-CSHARPEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-67fdc3b7f53245f7b8d25055b456b3ce/cwd.txt'; exit "$__tr_native_ec"

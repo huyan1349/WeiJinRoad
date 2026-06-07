@@ -269,4 +269,3 @@ namespace WeiJinRoad.World
         }
     }
 }
-CSHARPEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-91718804c00448429745d5153eb53d78/cwd.txt'; exit "$__tr_native_ec"

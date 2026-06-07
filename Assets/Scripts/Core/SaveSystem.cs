@@ -240,4 +240,3 @@ namespace WeiJinRoad.Core
         }
     }
 }
-ENDOFFILE; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-7617160a5c3c4043b3d0972b7ebe794f/cwd.txt'; exit "$__tr_native_ec"

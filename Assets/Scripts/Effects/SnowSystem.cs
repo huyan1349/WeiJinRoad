@@ -148,4 +148,3 @@ namespace WeiJinRoad.Effects
         }
     }
 }
-CSHARPEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-5b1e9e4621a3479e8a299292c9be699a/cwd.txt'; exit "$__tr_native_ec"

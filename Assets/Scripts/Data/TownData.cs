@@ -425,4 +425,3 @@ namespace WeiJinRoad.Data
         }
     }
 }
-CSHARPEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-bc783dce70414643987f911a63dc0f9f/cwd.txt'; exit "$__tr_native_ec"

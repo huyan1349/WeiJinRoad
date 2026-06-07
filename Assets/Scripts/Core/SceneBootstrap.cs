@@ -585,4 +585,3 @@ namespace WeiJinRoad.Core
         public void SetSensitivity(float sensitivity) => Sensitivity = sensitivity;
     }
 }
-CSHARPEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-be96c6c7fb2647a0a4cb5a8eda38c7bf/cwd.txt'; exit "$__tr_native_ec"

@@ -728,4 +728,3 @@ namespace WeiJinRoad.Camp
         }
     }
 }
-CSHARPEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-c61d9eacde064a4c951cb0f939327424/cwd.txt'; exit "$__tr_native_ec"

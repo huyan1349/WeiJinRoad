@@ -811,4 +811,3 @@ namespace WeiJinRoad.Editor
         }
     }
 }
-CS_EOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-e4654c0e26a2493c95b037c99dcd7134/cwd.txt'; exit "$__tr_native_ec"

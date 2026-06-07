@@ -148,4 +148,3 @@ namespace WeiJinRoad.UI
         private GameObject CreateUIObject(string name, Transform parent) { var obj = new GameObject(name); obj.transform.SetParent(parent, false); return obj; }
     }
 }
-CSHARPEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-98a4b4dbe99648fe9ae5308c80eed74c/cwd.txt'; exit "$__tr_native_ec"

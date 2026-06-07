@@ -241,4 +241,3 @@ namespace WeiJinRoad.World
         private void Update() { float t = Time.time; transform.localRotation = Quaternion.Euler(-20f + Mathf.Sin(t * 1.8f) * 3.4f + Mathf.Sin(t * 2.7f) * 1.7f, 7f, 0f); }
     }
 }
-ENDOFFILE; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-360e3dabd873431996535bd810a2df24/cwd.txt'; exit "$__tr_native_ec"

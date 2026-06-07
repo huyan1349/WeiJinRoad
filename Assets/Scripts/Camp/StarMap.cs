@@ -498,4 +498,3 @@ namespace WeiJinRoad.Camp
         private void SetFont(TMP_Text tmp) { if (_fontAsset != null) tmp.font = _fontAsset; }
     }
 }
-CSHARPEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-8e4d8f091ef845cbab6b5559143db7b7/cwd.txt'; exit "$__tr_native_ec"

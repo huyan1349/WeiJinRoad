@@ -1049,4 +1049,3 @@ namespace WeiJinRoad.UI
         }
     }
 }
-CSHARPEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-c9955ba222a744019a313ef95b4dcd1b/cwd.txt'; exit "$__tr_native_ec"

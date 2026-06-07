@@ -1021,4 +1021,3 @@ namespace WeiJinRoad.Tests
         }
     }
 }
-ENDOFFILE; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-1e48dfa6e79a4d849d34fed09f463fd0/cwd.txt'; exit "$__tr_native_ec"

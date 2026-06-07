@@ -1023,4 +1023,3 @@ namespace WeiJinRoad.Audio
         }
     }
 }
-CSHARPEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-f0381e6190794fe39bcbdc664146a86b/cwd.txt'; exit "$__tr_native_ec"

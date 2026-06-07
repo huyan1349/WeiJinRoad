@@ -1737,4 +1737,3 @@ namespace WeiJinRoad.Core
         #endregion
     }
 }
-ENDOFFILE; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-b0b7e662e5994ff6858f3a7d0316444c/cwd.txt'; exit "$__tr_native_ec"
