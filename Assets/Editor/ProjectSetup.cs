@@ -37,7 +37,7 @@ namespace WeiJinRoad.Editor
 
         private const string SettingsDir = "Assets/Settings";
         private const string URPAssetPath = "Assets/Settings/URPAsset.asset";
-        private const string ForwardRendererPath = "Assets/Settings/ForwardRenderer.asset";
+        private const string UniversalRendererPath = "Assets/Settings/UniversalRenderer.asset";
 
         private const string FontSourcePath = "Assets/Fonts/zpix.ttf";
         private const string FontAssetPath = "Assets/Fonts/zpix SDF.asset";
@@ -120,7 +120,7 @@ namespace WeiJinRoad.Editor
         /// 创建 URP 资产并配置渲染管线：
         /// - 创建 Assets/Settings/ 目录
         /// - 创建 UniversalRenderPipelineAsset
-        /// - 创建 ForwardRendererData
+        /// - 创建 UniversalRendererData
         /// - 设置 GraphicsSettings.currentRenderPipeline
         /// - 配置 HDR、MSAA 4x、阴影距离 150、主光阴影分辨率 2048
         /// </summary>
@@ -131,18 +131,18 @@ namespace WeiJinRoad.Editor
             // 确保目录存在
             EnsureDirectory(SettingsDir);
 
-            // 创建 Forward Renderer Data
-            var rendererData = AssetDatabase.LoadAssetAtPath<ForwardRendererData>(ForwardRendererPath);
+            // 创建 Universal Renderer Data (Unity 6 / URP 17.x: ForwardRendererData 已重命名为 UniversalRendererData)
+            var rendererData = AssetDatabase.LoadAssetAtPath<UniversalRendererData>(UniversalRendererPath);
             if (rendererData == null)
             {
-                rendererData = ScriptableObject.CreateInstance<ForwardRendererData>();
-                rendererData.name = "ForwardRenderer";
-                AssetDatabase.CreateAsset(rendererData, ForwardRendererPath);
-                Debug.Log("[ProjectSetup]   创建 ForwardRendererData: " + ForwardRendererPath);
+                rendererData = ScriptableObject.CreateInstance<UniversalRendererData>();
+                rendererData.name = "UniversalRenderer";
+                AssetDatabase.CreateAsset(rendererData, UniversalRendererPath);
+                Debug.Log("[ProjectSetup]   创建 UniversalRendererData: " + UniversalRendererPath);
             }
             else
             {
-                Debug.Log("[ProjectSetup]   ForwardRendererData 已存在，跳过创建");
+                Debug.Log("[ProjectSetup]   UniversalRendererData 已存在，跳过创建");
             }
 
             // 创建 URP Asset
@@ -162,6 +162,17 @@ namespace WeiJinRoad.Editor
             // 分配 Renderer Data 到 Pipeline Asset
             urpAsset.rendererDataList = new ScriptableRendererData[] { rendererData };
 
+            // 设置 UniversalRendererData 的渲染模式为 Forward (Unity 6 / URP 17.x)
+            var rendererSO = new SerializedObject(rendererData);
+            var renderingModeProp = rendererSO.FindProperty("m_RenderingMode");
+            if (renderingModeProp != null)
+            {
+                // RenderingMode.Forward = 0
+                renderingModeProp.intValue = 0;
+                rendererSO.ApplyModifiedProperties();
+                EditorUtility.SetDirty(rendererData);
+            }
+
             // 通过 SerializedObject 配置 URP 参数
             SerializedObject so = new SerializedObject(urpAsset);
 
@@ -169,8 +180,8 @@ namespace WeiJinRoad.Editor
             var hdrProp = so.FindProperty("m_SupportsHDR");
             if (hdrProp != null) hdrProp.boolValue = true;
 
-            // MSAA 4x
-            var msaaProp = so.FindProperty("m_MSAA");
+            // MSAA 4x (URP 14+: m_MSAA renamed to m_MsaaSampleCount)
+            var msaaProp = so.FindProperty("m_MsaaSampleCount");
             if (msaaProp != null) msaaProp.intValue = 4;
 
             // 阴影距离 150
