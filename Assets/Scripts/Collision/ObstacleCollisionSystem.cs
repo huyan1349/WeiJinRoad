@@ -648,7 +648,7 @@ namespace WeiJinRoad.Collision
                 if (halfW < 1f) continue;
 
                 var kind = PickKind(jitterRouteZ, rng.Next());
-                var props = GameData.ObstacleKindPropsMap[kind];
+                var props = GameData.GetObstacleKindProps(kind);
 
                 // 群内障碍数量：1~2个
                 int count = 1 + (int)(rng.Next() * 2f);

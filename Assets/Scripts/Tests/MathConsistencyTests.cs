@@ -105,10 +105,10 @@ namespace WeiJinRoad.Tests
             _data = data;
         }
 
-        public RoadSample Sample(float z)
+        public WeiJinRoad.World.RoadSample Sample(float z)
         {
             var s = _data.Sample(z);
-            return new RoadSample
+            return new WeiJinRoad.World.RoadSample
             {
                 Z = s.z,
                 CenterX = s.centerX,
@@ -133,7 +133,7 @@ namespace WeiJinRoad.Tests
             var (sample, distSq) = result.Value;
             return new ClosestRoadPointResult
             {
-                Sample = new RoadSample
+                Sample = new WeiJinRoad.World.RoadSample
                 {
                     Z = sample.z,
                     CenterX = sample.centerX,

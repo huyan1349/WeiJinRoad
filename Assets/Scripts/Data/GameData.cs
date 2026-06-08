@@ -5,6 +5,7 @@
 
 using System;
 using UnityEngine;
+using WeiJinRoad.Core;
 
 namespace WeiJinRoad.Data
 {
@@ -148,11 +149,11 @@ namespace WeiJinRoad.Data
     [Serializable]
     public class FacilityCost
     {
-        public int metal;
-        public int wood;
-        public int fuel;
-        public int signal;
-        public int crystal;
+        public int Metal;
+        public int Wood;
+        public int Fuel;
+        public int Signal;
+        public int Crystal;
     }
 
     /// <summary>
@@ -237,18 +238,18 @@ namespace WeiJinRoad.Data
     [Serializable]
     public class ShopDef
     {
-        public string id;
-        public string name;
-        public ShopType type;
-        public string desc;
-        public Vector3 position;
-        public float rotation;
-        public Vector3 size;
-        public string roofColor;
-        public string wallColor;
-        public string signText;
-        public string lightColor;
-        public string ownerLine;
+        public string Id;
+        public string Name;
+        public ShopType Type;
+        public string Desc;
+        public Vector3 Position;
+        public float Rotation;
+        public Vector3 Size;
+        public Color RoofColor;
+        public Color WallColor;
+        public string SignText;
+        public Color LightColor;
+        public string OwnerLine;
     }
 
     /// <summary>
@@ -257,14 +258,14 @@ namespace WeiJinRoad.Data
     [Serializable]
     public class TownItem
     {
-        public string id;
-        public string name;
-        public string desc;
-        public TownItemType type;
-        public FacilityCost cost;
-        public string effect;
-        public ShopType shopType;
-        public bool unique;
+        public string Id;
+        public string Name;
+        public string Desc;
+        public TownItemType Type;
+        public ResourceBag Cost;
+        public string Effect;
+        public ShopType ShopType;
+        public bool Unique;
     }
 
     // =========================================================================
@@ -369,12 +370,12 @@ namespace WeiJinRoad.Data
         /// <summary>每种设施所需资源</summary>
         public static readonly FacilityCost[] FacilityCosts = new FacilityCost[]
         {
-            new FacilityCost { metal = 3, wood = 2 },                                    // Supply
-            new FacilityCost { metal = 2, wood = 4 },                                    // Shelter
-            new FacilityCost { metal = 2, signal = 2 },                                  // SignalTower
-            new FacilityCost { metal = 3, crystal = 1, wood = 2 },                       // Beacon
-            new FacilityCost { metal = 2, wood = 3, signal = 1 },                        // Observatory
-            new FacilityCost { metal = 4, wood = 3 },                                    // Bridge
+            new FacilityCost { Metal = 3, Wood = 2 },                                    // Supply
+            new FacilityCost { Metal = 2, Wood = 4 },                                    // Shelter
+            new FacilityCost { Metal = 2, Signal = 2 },                                  // SignalTower
+            new FacilityCost { Metal = 3, Crystal = 1, Wood = 2 },                       // Beacon
+            new FacilityCost { Metal = 2, Wood = 3, Signal = 1 },                        // Observatory
+            new FacilityCost { Metal = 4, Wood = 3 },                                    // Bridge
         };
 
         /// <summary>按设施类型获取建造消耗</summary>
@@ -516,67 +517,72 @@ namespace WeiJinRoad.Data
         public const float ShopInteractRange = 8f;
 
         /// <summary>店铺列表（6家）</summary>
-        public static readonly ShopDef[] Shops = new ShopDef[]
+        private static ShopDef[] _shops;
+        public static ShopDef[] Shops => _shops ??= CreateShops();
+
+        private static ShopDef[] CreateShops()
+        {
+            return new ShopDef[]
         {
             new ShopDef
             {
-                id = "garage", name = "车库", type = ShopType.Garage,
-                desc = "重型维修车间，引擎轰鸣不息",
-                position = new Vector3(-4f, 0f, -8f), rotation = 0f,
-                size = new Vector3(8f, 5f, 6f),
-                roofColor = "#4a5060", wallColor = "#6a7080",
-                signText = "车库", lightColor = "#ffe8c0",
-                ownerLine = "老机修工擦了擦手上的油：这车跑了不少路吧？让我看看。"
+                Id = "garage", Name = "车库", Type = ShopType.Garage,
+                Desc = "重型维修车间，引擎轰鸣不息",
+                Position = new Vector3(-4f, 0f, -8f), Rotation = 0f,
+                Size = new Vector3(8f, 5f, 6f),
+                RoofColor = HexColor("#4a5060"), WallColor = HexColor("#6a7080"),
+                SignText = "车库", LightColor = HexColor("#ffe8c0"),
+                OwnerLine = "老机修工擦了擦手上的油：这车跑了不少路吧？让我看看。"
             },
             new ShopDef
             {
-                id = "supply", name = "补给站", type = ShopType.Supply,
-                desc = "物资堆到天花板，什么都有",
-                position = new Vector3(6f, 0f, -4f), rotation = 0.1570796f,
-                size = new Vector3(6f, 4f, 5f),
-                roofColor = "#4a6a3a", wallColor = "#8a7a60",
-                signText = "补给", lightColor = "#a0ff90",
-                ownerLine = "补给站老板搓着手：外头风大，进来挑挑？"
+                Id = "supply", Name = "补给站", Type = ShopType.Supply,
+                Desc = "物资堆到天花板，什么都有",
+                Position = new Vector3(6f, 0f, -4f), Rotation = 0.1570796f,
+                Size = new Vector3(6f, 4f, 5f),
+                RoofColor = HexColor("#4a6a3a"), WallColor = HexColor("#8a7a60"),
+                SignText = "补给", LightColor = HexColor("#a0ff90"),
+                OwnerLine = "补给站老板搓着手：外头风大，进来挑挑？"
             },
             new ShopDef
             {
-                id = "trade", name = "交易所", type = ShopType.Trade,
-                desc = "以物换物，童叟无欺",
-                position = new Vector3(-6f, 0f, 4f), rotation = -0.1f,
-                size = new Vector3(6f, 4f, 5f),
-                roofColor = "#a08030", wallColor = "#a09080",
-                signText = "交易", lightColor = "#ffc840",
-                ownerLine = "交易所掌柜推了推眼镜：今天行情不错，换点什么？"
+                Id = "trade", Name = "交易所", Type = ShopType.Trade,
+                Desc = "以物换物，童叟无欺",
+                Position = new Vector3(-6f, 0f, 4f), Rotation = -0.1f,
+                Size = new Vector3(6f, 4f, 5f),
+                RoofColor = HexColor("#a08030"), WallColor = HexColor("#a09080"),
+                SignText = "交易", LightColor = HexColor("#ffc840"),
+                OwnerLine = "交易所掌柜推了推眼镜：今天行情不错，换点什么？"
             },
             new ShopDef
             {
-                id = "tavern", name = "酒馆", type = ShopType.Tavern,
-                desc = "炉火温暖，旅人汇聚之地",
-                position = new Vector3(4f, 0f, 6f), rotation = 0.15f,
-                size = new Vector3(7f, 4f, 5f),
-                roofColor = "#5a3a2a", wallColor = "#7a5a3a",
-                signText = "酒馆", lightColor = "#ffc060",
-                ownerLine = "酒馆老板擦着杯子：坐吧，外头冷。听到什么新鲜事了吗？"
+                Id = "tavern", Name = "酒馆", Type = ShopType.Tavern,
+                Desc = "炉火温暖，旅人汇聚之地",
+                Position = new Vector3(4f, 0f, 6f), Rotation = 0.15f,
+                Size = new Vector3(7f, 4f, 5f),
+                RoofColor = HexColor("#5a3a2a"), WallColor = HexColor("#7a5a3a"),
+                SignText = "酒馆", LightColor = HexColor("#ffc060"),
+                OwnerLine = "酒馆老板擦着杯子：坐吧，外头冷。听到什么新鲜事了吗？"
             },
             new ShopDef
             {
-                id = "signal", name = "信号站", type = ShopType.Signal,
-                desc = "天线林立，捕捉远方信号",
-                position = new Vector3(0f, 0f, 12f), rotation = 0f,
-                size = new Vector3(4f, 6f, 4f),
-                roofColor = "#3a5a8a", wallColor = "#708090",
-                signText = "信号", lightColor = "#60b0ff",
-                ownerLine = "信号员盯着屏幕：最近收到些奇怪的频段……"
+                Id = "signal", Name = "信号站", Type = ShopType.Signal,
+                Desc = "天线林立，捕捉远方信号",
+                Position = new Vector3(0f, 0f, 12f), Rotation = 0f,
+                Size = new Vector3(4f, 6f, 4f),
+                RoofColor = HexColor("#3a5a8a"), WallColor = HexColor("#708090"),
+                SignText = "信号", LightColor = HexColor("#60b0ff"),
+                OwnerLine = "信号员盯着屏幕：最近收到些奇怪的频段……"
             },
             new ShopDef
             {
-                id = "fuel", name = "加油站", type = ShopType.Fuel,
-                desc = "红色雨棚下，燃料管嗡嗡作响",
-                position = new Vector3(10f, 0f, 2f), rotation = -0.2f,
-                size = new Vector3(5f, 3f, 4f),
-                roofColor = "#a03030", wallColor = "#c0c0c0",
-                signText = "加油", lightColor = "#ff6060",
-                ownerLine = "加油工靠在油泵旁：加满？还是只要够跑的？"
+                Id = "fuel", Name = "加油站", Type = ShopType.Fuel,
+                Desc = "红色雨棚下，燃料管嗡嗡作响",
+                Position = new Vector3(10f, 0f, 2f), Rotation = -0.2f,
+                Size = new Vector3(5f, 3f, 4f),
+                RoofColor = HexColor("#a03030"), WallColor = HexColor("#c0c0c0"),
+                SignText = "加油", LightColor = HexColor("#ff6060"),
+                OwnerLine = "加油工靠在油泵旁：加满？还是只要够跑的？"
             },
         };
 
@@ -592,140 +598,146 @@ namespace WeiJinRoad.Data
         };
 
         /// <summary>小镇商品列表（15项）</summary>
-        public static readonly TownItem[] TownItems = new TownItem[]
+        private static TownItem[] _townItems;
+        public static TownItem[] TownItems => _townItems ??= CreateTownItems();
+
+        private static TownItem[] CreateTownItems()
+        {
+            return new TownItem[]
         {
             // ── 车库商品 ──
             new TownItem
             {
-                id = "engine_upgrade_3", name = "高级发动机升级",
-                desc = "发动机升级至 Lv.3，动力与耐久大幅提升",
-                type = TownItemType.Upgrade,
-                cost = new FacilityCost { metal = 5, signal = 3 },
-                effect = "engine_level_3", shopType = ShopType.Garage, unique = true
+                Id = "engine_upgrade_3", Name = "高级发动机升级",
+                Desc = "发动机升级至 Lv.3，动力与耐久大幅提升",
+                Type = TownItemType.Upgrade,
+                Cost = new ResourceBag { Metal = 5, Signal = 3 },
+                Effect = "engine_level_3", ShopType = ShopType.Garage, Unique = true
             },
             new TownItem
             {
-                id = "full_repair", name = "全车大修",
-                desc = "所有部件恢复至最佳状态",
-                type = TownItemType.Repair,
-                cost = new FacilityCost { metal = 4, wood = 2 },
-                effect = "full_repair", shopType = ShopType.Garage, unique = false
+                Id = "full_repair", Name = "全车大修",
+                Desc = "所有部件恢复至最佳状态",
+                Type = TownItemType.Repair,
+                Cost = new ResourceBag { Metal = 4, Wood = 2 },
+                Effect = "full_repair", ShopType = ShopType.Garage, Unique = false
             },
             new TownItem
             {
-                id = "body_reinforce", name = "车身加固",
-                desc = "车身升级至 Lv.2，更耐撞击",
-                type = TownItemType.Upgrade,
-                cost = new FacilityCost { metal = 3, wood = 2 },
-                effect = "body_level_2", shopType = ShopType.Garage, unique = true
+                Id = "body_reinforce", Name = "车身加固",
+                Desc = "车身升级至 Lv.2，更耐撞击",
+                Type = TownItemType.Upgrade,
+                Cost = new ResourceBag { Metal = 3, Wood = 2 },
+                Effect = "body_level_2", ShopType = ShopType.Garage, Unique = true
             },
 
             // ── 补给站商品 ──
             new TownItem
             {
-                id = "metal_pack", name = "金属包 ×5",
-                desc = "5个金属零件，维修必备",
-                type = TownItemType.Resource,
-                cost = new FacilityCost { fuel = 2 },
-                effect = "metal_5", shopType = ShopType.Supply, unique = false
+                Id = "metal_pack", Name = "金属包 ×5",
+                Desc = "5个金属零件，维修必备",
+                Type = TownItemType.Resource,
+                Cost = new ResourceBag { Fuel = 2 },
+                Effect = "metal_5", ShopType = ShopType.Supply, Unique = false
             },
             new TownItem
             {
-                id = "wood_pack", name = "木材包 ×5",
-                desc = "5根木材，建造与维修通用",
-                type = TownItemType.Resource,
-                cost = new FacilityCost { fuel = 2 },
-                effect = "wood_5", shopType = ShopType.Supply, unique = false
+                Id = "wood_pack", Name = "木材包 ×5",
+                Desc = "5根木材，建造与维修通用",
+                Type = TownItemType.Resource,
+                Cost = new ResourceBag { Fuel = 2 },
+                Effect = "wood_5", ShopType = ShopType.Supply, Unique = false
             },
             new TownItem
             {
-                id = "survival_kit", name = "生存包",
-                desc = "金属×2 + 木材×2 + 燃料×2",
-                type = TownItemType.Resource,
-                cost = new FacilityCost { signal = 2 },
-                effect = "survival_kit", shopType = ShopType.Supply, unique = false
+                Id = "survival_kit", Name = "生存包",
+                Desc = "金属×2 + 木材×2 + 燃料×2",
+                Type = TownItemType.Resource,
+                Cost = new ResourceBag { Signal = 2 },
+                Effect = "survival_kit", ShopType = ShopType.Supply, Unique = false
             },
 
             // ── 交易所商品 ──
             new TownItem
             {
-                id = "fuel_trade", name = "燃料补给",
-                desc = "用金属换取3单位燃料",
-                type = TownItemType.Resource,
-                cost = new FacilityCost { metal = 1 },
-                effect = "fuel_3", shopType = ShopType.Trade, unique = false
+                Id = "fuel_trade", Name = "燃料补给",
+                Desc = "用金属换取3单位燃料",
+                Type = TownItemType.Resource,
+                Cost = new ResourceBag { Metal = 1 },
+                Effect = "fuel_3", ShopType = ShopType.Trade, Unique = false
             },
             new TownItem
             {
-                id = "signal_trade", name = "信号件交易",
-                desc = "用燃料换取2个信号件",
-                type = TownItemType.Resource,
-                cost = new FacilityCost { fuel = 2 },
-                effect = "signal_2", shopType = ShopType.Trade, unique = false
+                Id = "signal_trade", Name = "信号件交易",
+                Desc = "用燃料换取2个信号件",
+                Type = TownItemType.Resource,
+                Cost = new ResourceBag { Fuel = 2 },
+                Effect = "signal_2", ShopType = ShopType.Trade, Unique = false
             },
             new TownItem
             {
-                id = "crystal_trade", name = "光源晶交易",
-                desc = "用信号件和金属换取1颗光源晶",
-                type = TownItemType.Resource,
-                cost = new FacilityCost { signal = 2, metal = 2 },
-                effect = "crystal_1", shopType = ShopType.Trade, unique = false
+                Id = "crystal_trade", Name = "光源晶交易",
+                Desc = "用信号件和金属换取1颗光源晶",
+                Type = TownItemType.Resource,
+                Cost = new ResourceBag { Signal = 2, Metal = 2 },
+                Effect = "crystal_1", ShopType = ShopType.Trade, Unique = false
             },
 
             // ── 酒馆商品（打听消息）──
             new TownItem
             {
-                id = "traveler_rumor", name = "旅人传闻",
-                desc = "花1信号件，打听一段路途传闻",
-                type = TownItemType.Info,
-                cost = new FacilityCost { signal = 1 },
-                effect = "rumor", shopType = ShopType.Tavern, unique = false
+                Id = "traveler_rumor", Name = "旅人传闻",
+                Desc = "花1信号件，打听一段路途传闻",
+                Type = TownItemType.Info,
+                Cost = new ResourceBag { Signal = 1 },
+                Effect = "rumor", ShopType = ShopType.Tavern, Unique = false
             },
             new TownItem
             {
-                id = "old_map", name = "旧地图碎片",
-                desc = "花2信号件，获得一份旧地图线索",
-                type = TownItemType.Info,
-                cost = new FacilityCost { signal = 2 },
-                effect = "old_map", shopType = ShopType.Tavern, unique = false
+                Id = "old_map", Name = "旧地图碎片",
+                Desc = "花2信号件，获得一份旧地图线索",
+                Type = TownItemType.Info,
+                Cost = new ResourceBag { Signal = 2 },
+                Effect = "old_map", ShopType = ShopType.Tavern, Unique = false
             },
 
             // ── 信号站商品 ──
             new TownItem
             {
-                id = "signal_amplifier", name = "信号放大器",
-                desc = "电台升级至 Lv.2，信号接收范围扩大",
-                type = TownItemType.Upgrade,
-                cost = new FacilityCost { metal = 2, signal = 2 },
-                effect = "radio_level_2", shopType = ShopType.Signal, unique = true
+                Id = "signal_amplifier", Name = "信号放大器",
+                Desc = "电台升级至 Lv.2，信号接收范围扩大",
+                Type = TownItemType.Upgrade,
+                Cost = new ResourceBag { Metal = 2, Signal = 2 },
+                Effect = "radio_level_2", ShopType = ShopType.Signal, Unique = true
             },
             new TownItem
             {
-                id = "signal_parts", name = "信号件 ×3",
-                desc = "3个信号件，用于升级和交易",
-                type = TownItemType.Resource,
-                cost = new FacilityCost { metal = 2, fuel = 1 },
-                effect = "signal_3", shopType = ShopType.Signal, unique = false
+                Id = "signal_parts", Name = "信号件 ×3",
+                Desc = "3个信号件，用于升级和交易",
+                Type = TownItemType.Resource,
+                Cost = new ResourceBag { Metal = 2, Fuel = 1 },
+                Effect = "signal_3", ShopType = ShopType.Signal, Unique = false
             },
 
             // ── 加油站商品 ──
             new TownItem
             {
-                id = "fuel_fill", name = "补满油箱",
-                desc = "油箱燃料直接补满",
-                type = TownItemType.Resource,
-                cost = new FacilityCost { metal = 1 },
-                effect = "fuel_fill", shopType = ShopType.Fuel, unique = false
+                Id = "fuel_fill", Name = "补满油箱",
+                Desc = "油箱燃料直接补满",
+                Type = TownItemType.Resource,
+                Cost = new ResourceBag { Metal = 1 },
+                Effect = "fuel_fill", ShopType = ShopType.Fuel, Unique = false
             },
             new TownItem
             {
-                id = "tank_upgrade", name = "油箱扩容",
-                desc = "油箱升级至 Lv.2，容量增加",
-                type = TownItemType.Upgrade,
-                cost = new FacilityCost { metal = 3, fuel = 2 },
-                effect = "tank_level_2", shopType = ShopType.Fuel, unique = true
-            },
-        };
+                Id = "tank_upgrade", Name = "油箱扩容",
+                Desc = "油箱升级至 Lv.2，容量增加",
+                Type = TownItemType.Upgrade,
+                Cost = new ResourceBag { Metal = 3, Fuel = 2 },
+                Effect = "tank_level_2", ShopType = ShopType.Fuel, Unique = true
+                },
+            };
+        }
 
         /// <summary>酒馆叙事碎片（10条）</summary>
         public static readonly string[] TavernRumors = new string[]
@@ -741,5 +753,15 @@ namespace WeiJinRoad.Data
             "车库的老机修工说，他修过的车里，有一辆没有发动机却能跑。",
             "交易所掌柜悄悄说：有些东西不是用来换的——是用来还的。",
         };
+
+        /// <summary>
+        /// 将十六进制颜色字符串转换为 Color
+        /// </summary>
+        private static Color HexColor(string hex)
+        {
+            if (ColorUtility.TryParseHtmlString(hex, out var c))
+                return c;
+            return Color.white;
+        }
     }
 }
