@@ -585,6 +585,7 @@ namespace WeiJinRoad.Data
                 OwnerLine = "加油工靠在油泵旁：加满？还是只要够跑的？"
             },
         };
+        }
 
         /// <summary>店铺图标映射</summary>
         public static readonly string[] ShopIcons = new string[]
