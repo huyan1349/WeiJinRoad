@@ -125,7 +125,14 @@ namespace WeiJinRoad.UI
         private void OnNewGame() { var gm = GameManager.Instance; if (gm != null) gm.NewGame(); Hide(); Debug.Log("[MainMenuUI] 新游戏开始"); }
         private void OnContinue() { SaveSystem.LoadGame(); Hide(); Debug.Log("[MainMenuUI] 继续游戏"); }
         private void OnSettings() { var sp = FindFirstObjectByType<SettingsPage>(); if (sp != null) sp.Show(); }
-        private void OnQuit() { #if UNITY_EDITOR UnityEditor.EditorApplication.isPlaying = false; #else Application.Quit(); #endif }
+        private void OnQuit()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
 
         private void RefreshContinueButton()
         {
