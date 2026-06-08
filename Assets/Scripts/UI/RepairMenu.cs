@@ -92,7 +92,7 @@ namespace WeiJinRoad.UI
 
             var contentArea = CreateUIObject("ContentArea", _panel.transform);
             var contentRect = contentArea.AddComponent<RectTransform>();
-            contentArea.anchorMin = Vector2.zero; contentArea.anchorMax = Vector2.one;
+            contentRect.anchorMin = Vector2.zero; contentRect.anchorMax = Vector2.one;
             contentRect.offsetMin = new Vector2(10f, 10f); contentRect.offsetMax = new Vector2(-10f, -10f);
             contentArea.AddComponent<Image>().color = PanelColor;
 

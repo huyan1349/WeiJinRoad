@@ -323,7 +323,7 @@ namespace WeiJinRoad.Camp
 
             var label = CreateUIObject("IngLabel", left.transform).AddComponent<TextMeshProUGUI>();
             label.text = "库存食材"; label.fontSize = 9; label.color = TextDimColor;
-            label.alignment = TextAlignmentOptions.MiddleCenter; label.characterSpacing = 2f; SetFont(label);
+            label.alignment = TextAlignmentOptions.Center; label.characterSpacing = 2f; SetFont(label);
             label.gameObject.AddComponent<LayoutElement>().preferredHeight = 20f;
 
             _ingredientCounts.Clear();
@@ -503,7 +503,7 @@ namespace WeiJinRoad.Camp
 
             var label = CreateUIObject("RecipeLabel", right.transform).AddComponent<TextMeshProUGUI>();
             label.text = "配方书"; label.fontSize = 9; label.color = TextDimColor;
-            label.alignment = TextAlignmentOptions.MiddleCenter; label.characterSpacing = 2f; SetFont(label);
+            label.alignment = TextAlignmentOptions.Center; label.characterSpacing = 2f; SetFont(label);
             label.gameObject.AddComponent<LayoutElement>().preferredHeight = 20f;
 
             var cardContainer = CreateUIObject("RecipeCards", right.transform);
@@ -543,13 +543,13 @@ namespace WeiJinRoad.Camp
                 irLayout.childControlWidth = false;
 
                 var ingText = CreateUIObject("IngText", ingRow.transform).AddComponent<TextMeshProUGUI>();
-                ingText.fontSize = 8; ingText.alignment = TextAlignmentOptions.MiddleLeft; SetFont(ingText);
+                ingText.fontSize = 8; ingText.alignment = TextAlignmentOptions.MidlineLeft; SetFont(ingText);
                 ingText.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1f;
 
                 // 描述
                 var descText = CreateUIObject("Desc", card.transform).AddComponent<TextMeshProUGUI>();
                 descText.fontSize = 8; descText.color = new Color(1f,1f,1f,0.30f);
-                descText.alignment = TextAlignmentOptions.MiddleLeft; SetFont(descText);
+                descText.alignment = TextAlignmentOptions.MidlineLeft; SetFont(descText);
 
                 _recipeCards.Add(card);
             }

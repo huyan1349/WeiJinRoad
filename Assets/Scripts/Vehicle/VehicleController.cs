@@ -659,7 +659,7 @@ namespace WeiJinRoad.Vehicle
             bool headlightsOn = false;
             if (LightsEnabled && GameManager.Instance != null)
             {
-                var mode = GameManager.Instance.HeadlightsMode;
+                var mode = GameManager.Instance.HeadlightsModeType;
                 headlightsOn = mode == HeadlightsMode.On || (mode == HeadlightsMode.Auto && isNight);
             }
 
@@ -875,7 +875,7 @@ namespace WeiJinRoad.Vehicle
                 float totalFuelUsed = damageResult.Value.FuelUsed + damageResult.Value.TankLeak;
                 if (totalFuelUsed > 0f && GameManager.Instance != null)
                 {
-                    GameManager.Instance.SpendFuel(Mathf.Min(totalFuelUsed, GameManager.Instance.Fuel));
+                    GameManager.Instance.SpendResources(new ResourceBag { Fuel = Mathf.Min((int)totalFuelUsed, GameManager.Instance.Resources.Fuel) });
                 }
 
                 // 扣部件 condition

@@ -91,7 +91,7 @@ namespace WeiJinRoad.World
             var gm = GameManager.Instance;
             var pos = gm.VehicleTransient.Position;
             float cx = pos[0], cz = pos[1];
-            ResourceNodeDef nearest = null;
+            ResourceNodeVisualDef nearest = null;
             float nearestDist = PickupRange;
             var pickedSet = new HashSet<string>(gm.PickedResources);
             foreach (var node in Nodes)
@@ -139,8 +139,8 @@ namespace WeiJinRoad.World
             if (added > 0)
             {
                 if (Audio.AudioManager.Instance != null) Audio.AudioManager.Instance.PlayInteractClick();
-                Core.AchievementSystem.CheckExploreAchievements();
-                Core.AchievementSystem.CheckCollectAchievements();
+                FindObjectOfType<Core.AchievementSystem>().CheckExploreAchievements();
+                FindObjectOfType<Core.AchievementSystem>().CheckCollectAchievements();
                 if (_visuals.TryGetValue(near.Id, out var vis) && vis.GameObject != null)
                     vis.GameObject.SetActive(false);
                 gm.SetNearbyResource(null);
@@ -294,7 +294,7 @@ namespace WeiJinRoad.World
         private class NodeVisual
         {
             public GameObject GameObject;
-            public ResourceNodeDef Def;
+            public ResourceNodeVisualDef Def;
             public Material AccentMaterial;
             public float Phase;
         }

@@ -159,7 +159,7 @@ namespace WeiJinRoad.World
             _stoneMesh = CreateSphereMesh();
         }
 
-        private static Mesh CreateConeMesh(float radius, float height, int segments)
+        public static Mesh CreateConeMesh(float radius, float height, int segments)
         {
             var mesh = new Mesh();
             int vertCount = segments + 2;
@@ -580,7 +580,7 @@ namespace WeiJinRoad.World
             return go;
         }
 
-        private static GameObject AddCylinder(Transform parent, Vector3 pos, Quaternion rot, float radiusTop, float radiusBottom, float height, Color color, float roughness = 1f, float metalness = 0f)
+        private static GameObject AddCylinder(Transform parent, Vector3 pos, Quaternion rot, float radiusTop, float radiusBottom, float height, Color color, float roughness = 1f, float metalness = 0f, Color? emissiveColor = null, float emissiveIntensity = 0f)
         {
             var go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             go.transform.SetParent(parent); go.transform.localPosition = pos; go.transform.localRotation = rot;
@@ -588,6 +588,7 @@ namespace WeiJinRoad.World
             go.transform.localScale = new Vector3(scaleX, scaleY, scaleX);
             var mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
             mat.color = color; mat.SetFloat("_Smoothness", 1f-roughness); mat.SetFloat("_Metallic", metalness);
+            if (emissiveColor.HasValue && emissiveIntensity > 0f) { mat.EnableKeyword("_EMISSION"); mat.SetColor("_EmissionColor", emissiveColor.Value * emissiveIntensity); }
             go.GetComponent<Renderer>().material = mat;
             return go;
         }

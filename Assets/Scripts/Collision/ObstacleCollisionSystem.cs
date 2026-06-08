@@ -18,6 +18,7 @@ using UnityEngine;
 using WeiJinRoad.Core;
 using WeiJinRoad.Data;
 using WeiJinRoad.Vehicle;
+using WeiJinRoad.World;
 
 namespace WeiJinRoad.Collision
 {
@@ -620,7 +621,7 @@ namespace WeiJinRoad.Collision
         /// <returns>障碍定义列表</returns>
         private static List<ObstacleDef> GenerateObstacles()
         {
-            var rng = new Mulberry32(GameData.ObstacleSeed);
+            var rng = new Mulberry32((int)GameData.ObstacleSeed);
             var list = new List<ObstacleDef>();
             int index = 0;
 

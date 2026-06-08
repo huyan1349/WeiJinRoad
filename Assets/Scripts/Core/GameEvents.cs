@@ -32,12 +32,12 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 资源变更事件
         /// </summary>
-        public static event Action<ResourceBag> OnResourcesChanged;
+        public static Action<ResourceBag> OnResourcesChanged;
 
         /// <summary>
         /// 燃料变更事件（资源变更的快捷子事件）
         /// </summary>
-        public static event Action<int> OnFuelChanged;
+        public static Action<int> OnFuelChanged;
 
         // =================================================================
         // 载具事件
@@ -46,17 +46,17 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 载具部件状态变更事件（耐久度、等级、前挂件等）
         /// </summary>
-        public static event Action OnVehiclePartsChanged;
+        public static Action OnVehiclePartsChanged;
 
         /// <summary>
         /// 载具耐久度变更事件（传入部件ID和新耐久度）
         /// </summary>
-        public static event Action<PartId, float> OnPartConditionChanged;
+        public static Action<PartId, float> OnPartConditionChanged;
 
         /// <summary>
         /// 载具生命值/整体状态变更事件
         /// </summary>
-        public static event Action<float> OnHealthChanged;
+        public static Action<float> OnHealthChanged;
 
         // =================================================================
         // 游戏阶段事件
@@ -65,7 +65,7 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 游戏阶段变更事件（旅程进度变化时触发）
         /// </summary>
-        public static event Action<int> OnGamePhaseChanged;
+        public static Action<int> OnGamePhaseChanged;
 
         // =================================================================
         // 障碍物事件
@@ -74,7 +74,7 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 障碍物清除事件（传入障碍物ID）
         /// </summary>
-        public static event Action<string> OnObstacleCleared;
+        public static Action<string> OnObstacleCleared;
 
         // =================================================================
         // 碎片事件
@@ -83,7 +83,7 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 碎片发现事件（传入碎片ID）
         /// </summary>
-        public static event Action<string> OnFragmentDiscovered;
+        public static Action<string> OnFragmentDiscovered;
 
         // =================================================================
         // 营地事件
@@ -92,12 +92,12 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 营地建造事件（传入已建营地总数）
         /// </summary>
-        public static event Action<int> OnCampBuilt;
+        public static Action<int> OnCampBuilt;
 
         /// <summary>
         /// 扎营状态变更事件（true=开始扎营，false=结束扎营）
         /// </summary>
-        public static event Action<bool> OnCampingChanged;
+        public static Action<bool> OnCampingChanged;
 
         // =================================================================
         // 站点/设施事件
@@ -106,7 +106,7 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 站点设施建造事件（传入站点ID）
         /// </summary>
-        public static event Action<string> OnStationBuilt;
+        public static Action<string> OnStationBuilt;
 
         // =================================================================
         // 成就事件
@@ -115,7 +115,7 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 成就解锁事件（传入已解锁的成就数据）
         /// </summary>
-        public static event Action<Achievement> OnAchievementUnlocked;
+        public static Action<Achievement> OnAchievementUnlocked;
 
         // =================================================================
         // 存档事件
@@ -124,12 +124,12 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 游戏保存完成事件
         /// </summary>
-        public static event Action OnGameSaved;
+        public static Action OnGameSaved;
 
         /// <summary>
         /// 游戏加载完成事件
         /// </summary>
-        public static event Action OnGameLoaded;
+        public static Action OnGameLoaded;
 
         // =================================================================
         // 环境事件
@@ -138,12 +138,12 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 时间变更事件（传入当前时间，0~24小时）
         /// </summary>
-        public static event Action<float> OnTimeOfDayChanged;
+        public static Action<float> OnTimeOfDayChanged;
 
         /// <summary>
         /// 天气变更事件（true=下雪，false=停雪）
         /// </summary>
-        public static event Action<bool> OnSnowingChanged;
+        public static Action<bool> OnSnowingChanged;
 
         // =================================================================
         // 交互事件
@@ -152,17 +152,17 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 附近可交互对象变更事件
         /// </summary>
-        public static event Action<NearbyInteractable> OnNearbyInteractableChanged;
+        public static Action<NearbyInteractable> OnNearbyInteractableChanged;
 
         /// <summary>
         /// 叙事内容展示事件
         /// </summary>
-        public static event Action<NarrativeContent> OnNarrativeContentChanged;
+        public static Action<NarrativeContent> OnNarrativeContentChanged;
 
         /// <summary>
         /// 日志覆盖层可见性变更事件
         /// </summary>
-        public static event Action<bool> OnJournalOverlayVisibilityChanged;
+        public static Action<bool> OnJournalOverlayVisibilityChanged;
 
         // =================================================================
         // 旅程通知事件
@@ -171,7 +171,7 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 旅程通知事件（传入通知数据）
         /// </summary>
-        public static event Action<JourneyNotification> OnJourneyNotification;
+        public static Action<JourneyNotification> OnJourneyNotification;
 
         // =================================================================
         // 小镇事件
@@ -180,12 +180,12 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 小镇访问事件（首次访问时触发）
         /// </summary>
-        public static event Action OnTownVisited;
+        public static Action OnTownVisited;
 
         /// <summary>
         /// 物品购买事件（传入物品ID）
         /// </summary>
-        public static event Action<string> OnItemPurchased;
+        public static Action<string> OnItemPurchased;
 
         // =================================================================
         // 开发者事件
@@ -194,12 +194,12 @@ namespace WeiJinRoad.Core
         /// <summary>
         /// 开发者传送请求事件（传入目标X和Z坐标）
         /// </summary>
-        public static event Action<float, float> OnDevTeleportRequested;
+        public static Action<float, float> OnDevTeleportRequested;
 
         /// <summary>
         /// 开发者面板可见性变更事件
         /// </summary>
-        public static event Action<bool> OnDevPanelVisibilityChanged;
+        public static Action<bool> OnDevPanelVisibilityChanged;
 
         // =================================================================
         // 事件触发辅助方法

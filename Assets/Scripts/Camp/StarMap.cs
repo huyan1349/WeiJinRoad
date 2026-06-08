@@ -111,7 +111,7 @@ namespace WeiJinRoad.Camp
         private Dictionary<int, GameObject> _starObjects = new Dictionary<int, GameObject>();
         private GameObject _lineContainer;
         private List<GameObject> _activeLines = new List<GameObject>();
-        private List<Tuple<TMP_Text, Constellation>> _hintButtons = new List<Tuple<TMP_Text, Constellation>>();
+        private List<Tuple<TextMeshProUGUI, Constellation>> _hintButtons = new List<Tuple<TextMeshProUGUI, Constellation>>();
 
         public bool IsFinished => _finished;
 
@@ -284,7 +284,7 @@ namespace WeiJinRoad.Camp
             tlRect.sizeDelta = new Vector2(60f, 16f);
             _timeLeftText = timeObj.AddComponent<TextMeshProUGUI>();
             _timeLeftText.fontSize = 9; _timeLeftText.color = TextDimColor;
-            _timeLeftText.alignment = TextAlignmentOptions.MiddleRight; SetFont(_timeLeftText);
+            _timeLeftText.alignment = TextAlignmentOptions.MidlineRight; SetFont(_timeLeftText);
 
             // 底部信息
             CreateBottomInfo();
@@ -350,7 +350,7 @@ namespace WeiJinRoad.Camp
                 string cid = c.Id;
                 btn.onClick.AddListener(() => SelectConstellationHint(cid));
                 var hText = hBtnObj.AddComponent<TextMeshProUGUI>();
-                hText.fontSize = 9; hText.alignment = TextAlignmentOptions.MiddleLeft; SetFont(hText);
+                hText.fontSize = 9; hText.alignment = TextAlignmentOptions.MidlineLeft; SetFont(hText);
                 _hintButtons.Add(Tuple.Create(hText, c));
             }
 

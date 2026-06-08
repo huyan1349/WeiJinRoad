@@ -2,6 +2,7 @@ using UnityEngine;
 using WeiJinRoad.Core;
 using WeiJinRoad.Vehicle;
 using WeiJinRoad.World;
+using UnityEngine.Rendering;
 
 namespace WeiJinRoad.Core
 {
@@ -210,7 +211,7 @@ namespace WeiJinRoad.Core
             _sunLight.intensity = 0.8f;
             _sunLight.shadows = LightShadows.Soft;
             _sunLight.shadowStrength = 0.7f;
-            _sunLight.shadowDistance = 150f;
+            QualitySettings.shadowDistance = 150f;
             _sunLight.shadowNormalBias = 1f;
             _sunLight.shadowBias = 0.5f;
 

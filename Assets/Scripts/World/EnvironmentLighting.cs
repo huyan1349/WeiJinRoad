@@ -68,8 +68,7 @@ namespace WeiJinRoad.World
         {
             if (AmbientLight == null)
             {
-                foreach (var l in FindObjectsByType<Light>(FindObjectsSortMode.None))
-                    if (l.type == LightType.Ambient) { AmbientLight = l; break; }
+                // Unity 6 removed LightType.Ambient; use RenderSettings.ambientLight instead
             }
             if (SunLight == null)
             {

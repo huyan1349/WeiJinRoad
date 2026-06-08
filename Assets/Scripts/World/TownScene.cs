@@ -74,7 +74,7 @@ namespace WeiJinRoad.World
             float dist = Mathf.Sqrt(dx * dx + dz * dz);
             if (dist < TownDetectRange)
             {
-                if (!gm.TownVisited) { gm.SetTownVisited(true); Core.AchievementSystem.CheckAchievement("visit_town"); }
+                if (!gm.TownVisited) { gm.SetTownVisited(true); FindObjectOfType<Core.AchievementSystem>().CheckAchievement("visit_town"); }
                 string nearestShopId = null; float nearestShopDist = 8f;
                 foreach (var shop in Shops)
                 {

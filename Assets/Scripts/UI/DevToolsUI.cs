@@ -231,7 +231,7 @@ namespace WeiJinRoad.UI
             btnObj.AddComponent<LayoutElement>().preferredHeight = 30f;
             var text = btnObj.AddComponent<TextMeshProUGUI>();
             text.text = label; text.fontSize = 13; text.color = TextColor;
-            text.alignment = TextAlignmentOptions.MiddleCenter;
+            text.alignment = TextAlignmentOptions.Center;
             if (_fontAsset != null) text.font = _fontAsset;
         }
 
@@ -277,12 +277,10 @@ namespace WeiJinRoad.UI
                     var stats = gm.PerfStatsData;
                     stats.Fps = fps;
                     stats.FrameMs = frameMs;
-                    stats.DrawCalls = UnityEngine.Profiling.Profiler.supported
-                        ? UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong() > 0 ? UnityStats.DrawCalls : 0
-                        : 0;
-                    stats.Triangles = UnityStats.Triangles;
-                    stats.Textures = UnityStats.UsedTextures;
-                    stats.Geometries = UnityStats.UsedGeometries;
+                    stats.DrawCalls = 0;
+                    stats.Triangles = 0;
+                    stats.Textures = 0;
+                    stats.Geometries = 0;
                     gm.SetPerfStats(stats);
                 }
 

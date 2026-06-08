@@ -118,7 +118,6 @@ namespace WeiJinRoad.Effects
             if (renderer != null)
             {
                 renderer.renderMode = ParticleSystemRenderMode.Billboard;
-                renderer.billboardMode = ParticleSystemBillboardMode.Camera;
                 if (FogMaterial != null) renderer.material = FogMaterial;
                 else
                 {

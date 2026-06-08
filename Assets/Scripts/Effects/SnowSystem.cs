@@ -93,7 +93,6 @@ namespace WeiJinRoad.Effects
             if (renderer != null)
             {
                 renderer.renderMode = ParticleSystemRenderMode.Billboard;
-                renderer.billboardMode = ParticleSystemBillboardMode.Stretched;
                 renderer.lengthScale = 0.5f;
                 if (SnowMaterial != null) renderer.material = SnowMaterial;
                 else

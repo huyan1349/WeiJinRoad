@@ -1,5 +1,6 @@
 using UnityEngine;
 using WeiJinRoad.Core;
+using WeiJinRoad.Vehicle;
 
 namespace WeiJinRoad.World
 {
@@ -187,7 +188,7 @@ namespace WeiJinRoad.World
             {
                 var next = GetVisibleTerrainCenter();
                 if (Mathf.Abs(next.x - _terrainCenter.x) > TerrainRecenterDistance ||
-                    Mathf.Abs(next.y - _terrainCenter.z) > TerrainRecenterDistance)
+                    Mathf.Abs(next.y - _terrainCenter.y) > TerrainRecenterDistance)
                 {
                     _terrainCenter = next;
                     RebuildTerrainMesh();
