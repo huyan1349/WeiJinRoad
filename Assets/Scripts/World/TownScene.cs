@@ -95,8 +95,8 @@ namespace WeiJinRoad.World
             go.transform.position = new Vector3(ForkPosition.x, forkY, ForkPosition.z);
             AddCylinder(go.transform, new Vector3(0, 1.2f, 0), Quaternion.identity, 0.06f, 0.08f, 2.4f, WoodDark, 0.9f);
             AddBox(go.transform, new Vector3(0, 2.6f, 0.04f), Quaternion.identity, new Vector3(1.8f, 0.7f, 0.06f), new Color(0.353f, 0.227f, 0.102f), 0.95f);
-            AddBox(go.transform, new Vector3(-0.3f, 2.65f, 0.08f), Quaternion.identity, new Vector3(0.8f, 0.12f, 0.02f), new Color(0.910f, 0.878f, 0.816f), 1f, new Color(0.910f, 0.878f, 0.816f), 0.15f);
-            AddBox(go.transform, new Vector3(0.3f, 2.45f, 0.08f), Quaternion.identity, new Vector3(0.8f, 0.12f, 0.02f), new Color(0.910f, 0.878f, 0.816f), 1f, new Color(0.910f, 0.878f, 0.816f), 0.15f);
+            AddBox(go.transform, new Vector3(-0.3f, 2.65f, 0.08f), Quaternion.identity, new Vector3(0.8f, 0.12f, 0.02f), new Color(0.910f, 0.878f, 0.816f), 1f, 0f, new Color(0.910f, 0.878f, 0.816f), 0.15f);
+            AddBox(go.transform, new Vector3(0.3f, 2.45f, 0.08f), Quaternion.identity, new Vector3(0.8f, 0.12f, 0.02f), new Color(0.910f, 0.878f, 0.816f), 1f, 0f, new Color(0.910f, 0.878f, 0.816f), 0.15f);
             AddBox(go.transform, new Vector3(0, 2.98f, 0), Quaternion.identity, new Vector3(1.9f, 0.06f, 0.12f), SnowColor, 0.8f);
             _townObjects.Add(go);
         }
@@ -146,7 +146,7 @@ namespace WeiJinRoad.World
             AddBox(go.transform, new Vector3(0, h + h * 0.45f + 0.05f, 0), Quaternion.identity, new Vector3(w + 0.5f, 0.08f, d + 0.4f), SnowColor, 0.9f);
             AddBox(go.transform, new Vector3(0, h * 0.3f, d / 2f + 0.02f), Quaternion.identity, new Vector3(w * 0.25f, h * 0.55f, 0.06f), new Color(0.165f, 0.102f, 0.039f), 0.9f);
             foreach (int side in new[] { -1, 1 })
-                AddBox(go.transform, new Vector3(side * w * 0.28f, h * 0.6f, d / 2f + 0.02f), Quaternion.identity, new Vector3(w * 0.18f, h * 0.22f, 0.04f), new Color(1f, 0.910f, 0.627f), 0.2f, new Color(1f, 0.910f, 0.627f), 0.6f);
+                AddBox(go.transform, new Vector3(side * w * 0.28f, h * 0.6f, d / 2f + 0.02f), Quaternion.identity, new Vector3(w * 0.18f, h * 0.22f, 0.04f), new Color(1f, 0.910f, 0.627f), 0.2f, 0f, new Color(1f, 0.910f, 0.627f), 0.6f);
             AddBox(go.transform, new Vector3(0, h + h * 0.45f + 0.3f, d / 2f + 0.15f), Quaternion.identity, new Vector3(w * 0.5f, 0.4f, 0.06f), shop.RoofColor, 0.7f);
             AddPointLight(go.transform, new Vector3(0, h + h * 0.45f + 0.5f, d / 2f + 0.5f), shop.LightColor, 3f, 10f);
             switch (shop.Type)
@@ -205,7 +205,7 @@ namespace WeiJinRoad.World
             foreach (float x in new[] { -0.5f, 0.5f })
             {
                 AddBox(p, new Vector3(x, 0.7f, d / 2f + 1.2f), Quaternion.identity, new Vector3(0.4f, 1.2f, 0.3f), new Color(0.753f, 0.753f, 0.753f), 0.5f, 0.3f);
-                AddBox(p, new Vector3(x, 0.9f, d / 2f + 1.36f), Quaternion.identity, new Vector3(0.3f, 0.2f, 0.02f), new Color(0.102f, 0.102f, 0.165f), 0.3f, new Color(0.125f, 0.665f, 0.251f), 0.5f);
+                AddBox(p, new Vector3(x, 0.9f, d / 2f + 1.36f), Quaternion.identity, new Vector3(0.3f, 0.2f, 0.02f), new Color(0.102f, 0.102f, 0.165f), 0.3f, 0f, new Color(0.125f, 0.665f, 0.251f), 0.5f);
             }
         }
 

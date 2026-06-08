@@ -138,7 +138,7 @@ namespace WeiJinRoad.World
             int added = gm.PickupResource(near.Id, near.Kind, near.Amount);
             if (added > 0)
             {
-                if (Audio.AudioManager.Instance != null) Audio.AudioManager.Instance.PlayInteractClick();
+                if (Audio.AudioManager.Instance != null) Audio.AudioManager.PlayInteractClick();
                 FindObjectOfType<Core.AchievementSystem>().CheckExploreAchievements();
                 FindObjectOfType<Core.AchievementSystem>().CheckCollectAchievements();
                 if (_visuals.TryGetValue(near.Id, out var vis) && vis.GameObject != null)

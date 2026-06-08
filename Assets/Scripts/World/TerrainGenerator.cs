@@ -153,7 +153,7 @@ namespace WeiJinRoad.World
             if (TerrainHeight.RoadSampler == null)
             {
                 var rs = FindFirstObjectByType<RoadSpline>();
-                if (rs != null) TerrainHeight.RoadSampler = rs.Data;
+                if (rs != null) TerrainHeight.RoadSampler = new RoadSamplerAdapter(rs.Data);
             }
 
             // 创建子对象
@@ -929,5 +929,64 @@ namespace WeiJinRoad.World
             _lastRenderMode = mode;
             RebuildAllMeshes();
         }
+
+    /// <summary>
+    /// 将 RoadSplineData 适配为 IRoadSampler 接口
+    /// </summary>
+    private class RoadSamplerAdapter : IRoadSampler
+    {
+        private readonly RoadSplineData _data;
+
+        public RoadSamplerAdapter(RoadSplineData data)
+        {
+            _data = data;
+        }
+
+        public RoadSample Sample(float z)
+        {
+            var s = _data.Sample(z);
+            return new RoadSample
+            {
+                Z = s.z,
+                CenterX = s.centerX,
+                Height = s.height,
+                Width = s.width,
+                HalfWidth = s.halfWidth,
+                Direction = s.direction,
+                RouteZ = s.routeZ,
+                IsMountainRoad = s.isMountainRoad,
+                IsForestRoad = s.isForestRoad,
+                MountainBedHalfWidth = s.mountainBedHalfWidth,
+            };
+        }
+
+        public ClosestRoadPointResult ClosestRoadPoint(float x, float z, float searchRadius, float step)
+        {
+            var result = _data.ClosestRoadPoint(x, z, searchRadius, step);
+            if (result == null)
+            {
+                return new ClosestRoadPointResult { Found = false };
+            }
+            var (sample, distSq) = result.Value;
+            return new ClosestRoadPointResult
+            {
+                Sample = new RoadSample
+                {
+                    Z = sample.z,
+                    CenterX = sample.centerX,
+                    Height = sample.height,
+                    Width = sample.width,
+                    HalfWidth = sample.halfWidth,
+                    Direction = sample.direction,
+                    RouteZ = sample.routeZ,
+                    IsMountainRoad = sample.isMountainRoad,
+                    IsForestRoad = sample.isForestRoad,
+                    MountainBedHalfWidth = sample.mountainBedHalfWidth,
+                },
+                DistSq = distSq,
+                Found = true,
+            };
+        }
+    }
     }
 }

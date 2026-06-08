@@ -210,7 +210,7 @@ namespace WeiJinRoad.World
             {
                 float angle = (i / 8f) * Mathf.PI * 2f;
                 float x = Mathf.Cos(angle) * 0.42f, z = Mathf.Sin(angle) * 0.42f;
-                AddBox(p, new Vector3(x, 4.5f, z), Quaternion.Euler(0, -angle * Mathf.Rad2Deg, 0), new Vector3(0.25f, 0.55f, 0.01f), GlassWarm, 0.1f, GlassWarm, 0.5f);
+                AddBox(p, new Vector3(x, 4.5f, z), Quaternion.Euler(0, -angle * Mathf.Rad2Deg, 0), new Vector3(0.25f, 0.55f, 0.01f), GlassWarm, 0.1f, 0f, GlassWarm, 0.5f);
             }
             AddCone(p, new Vector3(0, 5.05f, 0), Quaternion.identity, 0.6f, 0.3f, 8, new Color(0.478f, 0.478f, 0.416f), 0.6f);
             AddSphere(p, new Vector3(0, 5.0f, 0), 0.2f, new Color(1f, 0.957f, 0.816f), 0.1f, new Color(1f, 0.957f, 0.816f), 3f);
