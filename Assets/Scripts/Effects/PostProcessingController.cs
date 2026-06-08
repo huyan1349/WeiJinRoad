@@ -1,4 +1,7 @@
 using UnityEngine;
+// TODO: 需要添加 URP 程序集引用 (UnityEngine.Rendering.Universal) 后启用此类
+// 当前因缺少 URP 包引用导致 Volume/Bloom/Vignette 等类型无法解析，暂时禁用
+#if false
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using WeiJinRoad.Core;
@@ -173,3 +176,4 @@ namespace WeiJinRoad.Effects
         }
     }
 }
+#endif

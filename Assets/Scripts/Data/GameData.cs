@@ -14,18 +14,6 @@ namespace WeiJinRoad.Data
     // =========================================================================
 
     /// <summary>
-    /// 资源种类：金属、木材、燃料、信号件、光源晶
-    /// </summary>
-    public enum ResourceKind
-    {
-        Metal,
-        Wood,
-        Fuel,
-        Signal,
-        Crystal
-    }
-
-    /// <summary>
     /// 资源点类型：残骸、木材堆、油桶、设备、光源晶
     /// </summary>
     public enum NodeType
