@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using WeiJinRoad.Core;
+using WeiJinRoad.Data;
+using ObstacleKind = WeiJinRoad.Data.ObstacleKind;
 
 namespace WeiJinRoad.World
 {
@@ -12,10 +14,11 @@ namespace WeiJinRoad.World
     // 使用 InstancedMesh 高效渲染，清除动画：缩放+淡出 0.36s
     // =================================================================
 
-    public enum ObstacleKind { SnowDrift, IceBlock, FallenLog, Rockfall }
-
+    /// <summary>
+    /// 障碍物视觉定义（用于渲染层，与 Data.ObstacleDef 碰撞定义分离）
+    /// </summary>
     [Serializable]
-    public class ObstacleDef
+    public class ObstacleVisualDef
     {
         public string Id;
         public ObstacleKind Kind;
@@ -31,7 +34,7 @@ namespace WeiJinRoad.World
         private const float ClearDuration = 0.36f;
 
         [Header("Obstacle Data")]
-        public List<ObstacleDef> Obstacles = new List<ObstacleDef>();
+        public List<ObstacleVisualDef> Obstacles = new List<ObstacleVisualDef>();
 
         [Header("Materials")]
         public Material SnowDriftMaterial;
@@ -39,7 +42,7 @@ namespace WeiJinRoad.World
         public Material FallenLogMaterial;
         public Material IceBlockMaterial;
 
-        private Dictionary<ObstacleKind, List<ObstacleDef>> _byKind = new Dictionary<ObstacleKind, List<ObstacleDef>>();
+        private Dictionary<ObstacleKind, List<ObstacleVisualDef>> _byKind = new Dictionary<ObstacleKind, List<ObstacleVisualDef>>();
         private Dictionary<ObstacleKind, InstancedObstacleLayer> _layers = new Dictionary<ObstacleKind, InstancedObstacleLayer>();
 
         private void Start()
@@ -68,7 +71,7 @@ namespace WeiJinRoad.World
         {
             _byKind.Clear();
             foreach (ObstacleKind kind in Enum.GetValues(typeof(ObstacleKind)))
-                _byKind[kind] = new List<ObstacleDef>();
+                _byKind[kind] = new List<ObstacleVisualDef>();
             foreach (var ob in Obstacles) _byKind[ob.Kind].Add(ob);
         }
 
@@ -135,9 +138,9 @@ namespace WeiJinRoad.World
             mesh.vertices = vertices; mesh.normals = normals; mesh.triangles = triangles; return mesh;
         }
 
-        public static List<ObstacleDef> GenerateObstacles(int seed = 42, int count = 60)
+        public static List<ObstacleVisualDef> GenerateObstacles(int seed = 42, int count = 60)
         {
-            var result = new List<ObstacleDef>(); var rng = new System.Random(seed);
+            var result = new List<ObstacleVisualDef>(); var rng = new System.Random(seed);
             ObstacleKind[] kinds = { ObstacleKind.SnowDrift, ObstacleKind.IceBlock, ObstacleKind.FallenLog, ObstacleKind.Rockfall };
             for (int i = 0; i < count; i++)
             {
@@ -150,18 +153,18 @@ namespace WeiJinRoad.World
                 float x = sample.Value.CenterX + side * dist;
                 float z = TerrainHeight.RouteToWorldZ(routeZ);
                 float y = TerrainHeight.GetTerrainHeight(x, z);
-                result.Add(new ObstacleDef { Id = $"obs_{i}", Kind = kind, X = x, Y = y, Z = z, Scale = 0.6f + (float)rng.NextDouble() * 1.2f, RotationY = (float)rng.NextDouble() * Mathf.PI * 2f });
+                result.Add(new ObstacleVisualDef { Id = $"obs_{i}", Kind = kind, X = x, Y = y, Z = z, Scale = 0.6f + (float)rng.NextDouble() * 1.2f, RotationY = (float)rng.NextDouble() * Mathf.PI * 2f });
             }
             return result;
         }
 
         private class InstancedObstacleLayer
         {
-            private readonly List<ObstacleDef> _items; private readonly ObstacleKind _kind; private readonly Mesh _mesh; private readonly Material _material;
+            private readonly List<ObstacleVisualDef> _items; private readonly ObstacleKind _kind; private readonly Mesh _mesh; private readonly Material _material;
             private readonly ObstaclePhase[] _phases; private readonly float[] _progress; private readonly HashSet<string> _knownCleared = new HashSet<string>();
             private Matrix4x4[] _matrices; private bool _dirty;
 
-            public InstancedObstacleLayer(List<ObstacleDef> items, ObstacleKind kind, Mesh mesh, Material material)
+            public InstancedObstacleLayer(List<ObstacleVisualDef> items, ObstacleKind kind, Mesh mesh, Material material)
             { _items = items; _kind = kind; _mesh = mesh; _material = material; _phases = new ObstaclePhase[items.Count]; _progress = new float[items.Count]; _matrices = new Matrix4x4[items.Count]; for (int i = 0; i < items.Count; i++) { _phases[i] = ObstaclePhase.Present; _progress[i] = 0f; } }
 
             public void Initialize(Transform parent) { for (int i = 0; i < _items.Count; i++) WriteMatrix(i, 1f); }
@@ -196,3 +199,4 @@ namespace WeiJinRoad.World
         }
     }
 }
+ENDOFFILE; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-a51ef9e8a0d245eeba5b1902ff3561ca/cwd.txt'; exit "$__tr_native_ec"

@@ -94,18 +94,6 @@ namespace WeiJinRoad.Vehicle
     // 部件ID枚举
     // =====================================================================
 
-    /// <summary>
-    /// 车辆部件ID
-    /// </summary>
-    public enum PartId
-    {
-        Engine,
-        Tires,
-        Headlight,
-        Tank,
-        Body,
-        Radio
-    }
 
     // =====================================================================
     // 车辆损耗系统

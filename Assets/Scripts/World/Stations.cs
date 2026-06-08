@@ -5,10 +5,9 @@ using WeiJinRoad.Core;
 
 namespace WeiJinRoad.World
 {
-    public enum FacilityType { Supply, Shelter, SignalTower, Beacon, Observatory, Bridge }
 
     [Serializable]
-    public class StationSiteDef
+    public class StationSiteVisualDef
     {
         public string Id;
         public string Name;
@@ -33,7 +32,7 @@ namespace WeiJinRoad.World
         private static readonly Color LightGreen = new Color(0.290f, 1f, 0.541f);
 
         [Header("Station Sites")]
-        public List<StationSiteDef> Sites = new List<StationSiteDef>();
+        public List<StationSiteVisualDef> Sites = new List<StationSiteVisualDef>();
         [Header("Detection")]
         public float DetectRange = StationDetectRange;
 
@@ -99,7 +98,7 @@ namespace WeiJinRoad.World
             }
         }
 
-        private void RenderSiteMarker(StationSiteDef site)
+        private void RenderSiteMarker(StationSiteVisualDef site)
         {
             var go = new GameObject("Marker_" + site.Id);
             go.transform.SetParent(transform);
@@ -111,7 +110,7 @@ namespace WeiJinRoad.World
             _markerObjects.Add(go);
         }
 
-        private void RenderBuiltFacilities(StationSiteDef site, StationState state)
+        private void RenderBuiltFacilities(StationSiteVisualDef site, StationState state)
         {
             if (state.Facilities == null) return;
             for (int i = 0; i < state.Facilities.Count; i++)
@@ -318,9 +317,9 @@ namespace WeiJinRoad.World
             var light = obj.AddComponent<Light>(); light.type = LightType.Point; light.color = color; light.intensity = intensity; light.range = range; light.shadows = LightShadows.Soft; return light;
         }
 
-        public static List<StationSiteDef> GenerateStationSites(int seed = 777, int count = 9)
+        public static List<StationSiteVisualDef> GenerateStationSites(int seed = 777, int count = 9)
         {
-            var result = new List<StationSiteDef>(); var rng = new System.Random(seed);
+            var result = new List<StationSiteVisualDef>(); var rng = new System.Random(seed);
             string[] names = { "霜原驿站", "松林庇护所", "冰湖哨站", "山脊信号站", "雪谷灯塔", "高地观测台", "峡谷桥梁", "冻土补给点", "极光营地" };
             for (int i = 0; i < count; i++)
             {
@@ -331,7 +330,7 @@ namespace WeiJinRoad.World
                 float x = sample.Value.CenterX + side * dist;
                 float z = TerrainHeight.RouteToWorldZ(routeZ);
                 float y = TerrainHeight.GetTerrainHeight(x, z);
-                result.Add(new StationSiteDef { Id = "station_" + i, Name = i < names.Length ? names[i] : "站点" + i, X = x, Y = y, Z = z });
+                result.Add(new StationSiteVisualDef { Id = "station_" + i, Name = i < names.Length ? names[i] : "站点" + i, X = x, Y = y, Z = z });
             }
             return result;
         }

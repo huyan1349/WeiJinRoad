@@ -18,9 +18,6 @@ using UnityEngine;
 using WeiJinRoad.Core;
 using WeiJinRoad.Data;
 using WeiJinRoad.Vehicle;
-using WeiJinRoad.World;
-using ObstacleKind = WeiJinRoad.Data.ObstacleKind;
-using ObstacleDef = WeiJinRoad.Data.ObstacleDef;
 
 namespace WeiJinRoad.Collision
 {

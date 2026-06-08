@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using WeiJinRoad.Core;
+using WeiJinRoad.Data;
 
 namespace WeiJinRoad.World
 {
-    public enum NodeType { Wreck, Logpile, FuelDrum, Device, Crystal }
-
     [Serializable]
-    public class ResourceNodeDef
+    public class ResourceNodeVisualDef
     {
         public string Id;
         public NodeType NodeTypeVal;
@@ -36,7 +35,7 @@ namespace WeiJinRoad.World
         };
 
         [Header("Resource Node Data")]
-        public List<ResourceNodeDef> Nodes = new List<ResourceNodeDef>();
+        public List<ResourceNodeVisualDef> Nodes = new List<ResourceNodeVisualDef>();
         [Header("Pickup Settings")]
         public KeyCode PickupKey = KeyCode.E;
         public float PickupRange = PickRange;
@@ -151,7 +150,7 @@ namespace WeiJinRoad.World
 
         private void OnResourcesChanged(ResourceBag _) { }
 
-        private GameObject CreateNodeVisual(ResourceNodeDef node)
+        private GameObject CreateNodeVisual(ResourceNodeVisualDef node)
         {
             var root = new GameObject("Node_" + node.Id);
             root.transform.position = new Vector3(node.X, node.Y, node.Z);
@@ -264,9 +263,9 @@ namespace WeiJinRoad.World
             return go;
         }
 
-        public static List<ResourceNodeDef> GenerateResourceNodes(int seed = 123, int count = 40)
+        public static List<ResourceNodeVisualDef> GenerateResourceNodes(int seed = 123, int count = 40)
         {
-            var result = new List<ResourceNodeDef>();
+            var result = new List<ResourceNodeVisualDef>();
             var rng = new System.Random(seed);
             NodeType[] types = { NodeType.Wreck, NodeType.Logpile, NodeType.FuelDrum, NodeType.Device, NodeType.Crystal };
             ResourceKind[] kinds = { ResourceKind.Metal, ResourceKind.Wood, ResourceKind.Fuel, ResourceKind.Signal, ResourceKind.Crystal };
@@ -282,7 +281,7 @@ namespace WeiJinRoad.World
                 float x = sample.Value.CenterX + side * dist;
                 float z = TerrainHeight.RouteToWorldZ(routeZ);
                 float y = TerrainHeight.GetTerrainHeight(x, z);
-                result.Add(new ResourceNodeDef
+                result.Add(new ResourceNodeVisualDef
                 {
                     Id = "res_" + i, NodeTypeVal = nodeType, Kind = kinds[typeIdx],
                     Amount = 1 + rng.Next(3), X = x, Y = y, Z = z,

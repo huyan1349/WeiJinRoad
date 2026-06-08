@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using WeiJinRoad.Core;
+using WeiJinRoad.Data;
 
 namespace WeiJinRoad.World
 {
-    public enum ShopType { Garage, Supply, Trade, Tavern, Signal, Fuel }
-
     [Serializable]
-    public class ShopDef
+    public class ShopVisualDef
     {
         public string Id;
         public ShopType Type;
@@ -34,7 +33,7 @@ namespace WeiJinRoad.World
         public float TownDetectRange = 20f;
 
         [Header("Shops")]
-        public List<ShopDef> Shops = new List<ShopDef>();
+        public List<ShopVisualDef> Shops = new List<ShopVisualDef>();
 
         [Header("Fork Sign")]
         public Vector3 ForkPosition = new Vector3(-5f, 0f, -460f);
@@ -134,7 +133,7 @@ namespace WeiJinRoad.World
             _townObjects.Add(groundObj);
         }
 
-        private void BuildShop(ShopDef shop)
+        private void BuildShop(ShopVisualDef shop)
         {
             float worldX = TownCenter.x + shop.Position.x, worldZ = TownCenter.z + shop.Position.z;
             float baseY = TerrainHeight.GetTerrainHeight(worldX, worldZ);
@@ -336,16 +335,16 @@ namespace WeiJinRoad.World
             var light = obj.AddComponent<Light>(); light.type = LightType.Point; light.color = color; light.intensity = intensity; light.range = range; light.shadows = LightShadows.Soft; return light;
         }
 
-        public static List<ShopDef> GenerateDefaultShops()
+        public static List<ShopVisualDef> GenerateDefaultShops()
         {
-            return new List<ShopDef>
+            return new List<ShopVisualDef>
             {
-                new ShopDef { Id = "garage", Type = ShopType.Garage, Position = new Vector3(-6f, 0, -4f), Rotation = 0.3f, Size = new Vector3(4f, 3f, 5f), WallColor = new Color(0.353f, 0.353f, 0.384f), RoofColor = new Color(0.251f, 0.251f, 0.290f), LightColor = new Color(1f, 0.878f, 0.565f) },
-                new ShopDef { Id = "supply", Type = ShopType.Supply, Position = new Vector3(6f, 0, -3f), Rotation = -0.2f, Size = new Vector3(3.5f, 2.8f, 4f), WallColor = new Color(0.416f, 0.384f, 0.314f), RoofColor = new Color(0.290f, 0.251f, 0.188f), LightColor = new Color(1f, 0.910f, 0.753f) },
-                new ShopDef { Id = "trade", Type = ShopType.Trade, Position = new Vector3(-5f, 0, 5f), Rotation = 0.5f, Size = new Vector3(3f, 2.5f, 3.5f), WallColor = new Color(0.478f, 0.416f, 0.314f), RoofColor = new Color(0.353f, 0.290f, 0.200f), LightColor = new Color(1f, 0.843f, 0.565f) },
-                new ShopDef { Id = "tavern", Type = ShopType.Tavern, Position = new Vector3(5f, 0, 6f), Rotation = -0.4f, Size = new Vector3(4.5f, 3.2f, 5.5f), WallColor = new Color(0.353f, 0.251f, 0.165f), RoofColor = new Color(0.227f, 0.165f, 0.102f), LightColor = new Color(1f, 0.753f, 0.376f) },
-                new ShopDef { Id = "signal", Type = ShopType.Signal, Position = new Vector3(-8f, 0, 0), Rotation = 0.1f, Size = new Vector3(3f, 3.5f, 3f), WallColor = new Color(0.314f, 0.353f, 0.416f), RoofColor = new Color(0.227f, 0.251f, 0.314f), LightColor = new Color(0.369f, 0.780f, 1f) },
-                new ShopDef { Id = "fuel", Type = ShopType.Fuel, Position = new Vector3(8f, 0, -1f), Rotation = -0.15f, Size = new Vector3(3.5f, 2.8f, 4f), WallColor = new Color(0.384f, 0.384f, 0.353f), RoofColor = new Color(0.290f, 0.290f, 0.251f), LightColor = new Color(1f, 0.910f, 0.627f) }
+                new ShopVisualDef { Id = "garage", Type = ShopType.Garage, Position = new Vector3(-6f, 0, -4f), Rotation = 0.3f, Size = new Vector3(4f, 3f, 5f), WallColor = new Color(0.353f, 0.353f, 0.384f), RoofColor = new Color(0.251f, 0.251f, 0.290f), LightColor = new Color(1f, 0.878f, 0.565f) },
+                new ShopVisualDef { Id = "supply", Type = ShopType.Supply, Position = new Vector3(6f, 0, -3f), Rotation = -0.2f, Size = new Vector3(3.5f, 2.8f, 4f), WallColor = new Color(0.416f, 0.384f, 0.314f), RoofColor = new Color(0.290f, 0.251f, 0.188f), LightColor = new Color(1f, 0.910f, 0.753f) },
+                new ShopVisualDef { Id = "trade", Type = ShopType.Trade, Position = new Vector3(-5f, 0, 5f), Rotation = 0.5f, Size = new Vector3(3f, 2.5f, 3.5f), WallColor = new Color(0.478f, 0.416f, 0.314f), RoofColor = new Color(0.353f, 0.290f, 0.200f), LightColor = new Color(1f, 0.843f, 0.565f) },
+                new ShopVisualDef { Id = "tavern", Type = ShopType.Tavern, Position = new Vector3(5f, 0, 6f), Rotation = -0.4f, Size = new Vector3(4.5f, 3.2f, 5.5f), WallColor = new Color(0.353f, 0.251f, 0.165f), RoofColor = new Color(0.227f, 0.165f, 0.102f), LightColor = new Color(1f, 0.753f, 0.376f) },
+                new ShopVisualDef { Id = "signal", Type = ShopType.Signal, Position = new Vector3(-8f, 0, 0), Rotation = 0.1f, Size = new Vector3(3f, 3.5f, 3f), WallColor = new Color(0.314f, 0.353f, 0.416f), RoofColor = new Color(0.227f, 0.251f, 0.314f), LightColor = new Color(0.369f, 0.780f, 1f) },
+                new ShopVisualDef { Id = "fuel", Type = ShopType.Fuel, Position = new Vector3(8f, 0, -1f), Rotation = -0.15f, Size = new Vector3(3.5f, 2.8f, 4f), WallColor = new Color(0.384f, 0.384f, 0.353f), RoofColor = new Color(0.290f, 0.290f, 0.251f), LightColor = new Color(1f, 0.910f, 0.627f) }
             };
         }
     }

@@ -36,30 +36,7 @@ namespace WeiJinRoad.Data
         IceBlock
     }
 
-    /// <summary>
-    /// 设施类型：补给仓、避风棚、信号塔、灯塔、观测台、简易桥
-    /// </summary>
-    public enum FacilityType
-    {
-        Supply,
-        Shelter,
-        SignalTower,
-        Beacon,
-        Observatory,
-        Bridge
-    }
 
-    /// <summary>
-    /// 成就分类：旅途、营地、探索、载具、收集
-    /// </summary>
-    public enum AchievementCategory
-    {
-        Journey,
-        Camp,
-        Explore,
-        Vehicle,
-        Collect
-    }
 
     /// <summary>
     /// 店铺类型：车库、补给站、交易所、酒馆、信号站、加油站
@@ -196,29 +173,7 @@ namespace WeiJinRoad.Data
         public bool blocking;
     }
 
-    /// <summary>
-    /// 成就定义
-    /// </summary>
-    [Serializable]
-    public class AchievementDef
-    {
-        public string id;
-        public string name;
-        public string desc;
-        public string icon;
-        public AchievementCategory category;
-        public bool hidden;
-    }
 
-    /// <summary>
-    /// 成就分类元数据
-    /// </summary>
-    [Serializable]
-    public class AchievementCategoryMeta
-    {
-        public string label;
-        public string icon;
-    }
 
     /// <summary>
     /// 店铺定义
@@ -434,61 +389,6 @@ namespace WeiJinRoad.Data
         public const float ObstacleRouteEnd = -700f;
         public const float ObstacleClusterStep = 30f;
         public const uint ObstacleSeed = 0x5eed01;
-
-        // ── 成就 ──────────────────────────────────────────────────────────
-
-        /// <summary>成就分类元数据</summary>
-        public static readonly AchievementCategoryMeta[] AchievementCategoryMetas = new AchievementCategoryMeta[]
-        {
-            new AchievementCategoryMeta { label = "旅途", icon = "🧭" },  // Journey
-            new AchievementCategoryMeta { label = "营地", icon = "🏕" },  // Camp
-            new AchievementCategoryMeta { label = "探索", icon = "🔍" },  // Explore
-            new AchievementCategoryMeta { label = "载具", icon = "🚗" },  // Vehicle
-            new AchievementCategoryMeta { label = "收集", icon = "📦" },  // Collect
-        };
-
-        /// <summary>成就定义列表（29项）</summary>
-        public static readonly AchievementDef[] Achievements = new AchievementDef[]
-        {
-            // ─── 旅途 ───
-            new AchievementDef { id = "first_drive",    name = "启程",         desc = "第一次启动车辆",         icon = "🚗", category = AchievementCategory.Journey, hidden = false },
-            new AchievementDef { id = "reach_forest",   name = "林间穿行",     desc = "到达森林路段",           icon = "🌲", category = AchievementCategory.Journey, hidden = false },
-            new AchievementDef { id = "reach_valley",   name = "裂谷深处",     desc = "到达裂谷路段",           icon = "🏔", category = AchievementCategory.Journey, hidden = false },
-            new AchievementDef { id = "reach_mountain", name = "山巅之上",     desc = "到达山路段",             icon = "⛰", category = AchievementCategory.Journey, hidden = false },
-            new AchievementDef { id = "reach_summit",   name = "未尽之路的终点", desc = "到达山顶",             icon = "🌅", category = AchievementCategory.Journey, hidden = true },
-            new AchievementDef { id = "journey_5",      name = "全线通行",     desc = "解锁第5旅程",           icon = "🗺", category = AchievementCategory.Journey, hidden = false },
-
-            // ─── 营地 ───
-            new AchievementDef { id = "first_camp",        name = "首次扎营", desc = "第一次扎营休息",           icon = "🏕", category = AchievementCategory.Camp, hidden = false },
-            new AchievementDef { id = "camp_5",            name = "老练旅人", desc = "累计扎营5次",             icon = "⛺", category = AchievementCategory.Camp, hidden = false },
-            new AchievementDef { id = "camp_10",           name = "以路为家", desc = "累计扎营10次",            icon = "🏠", category = AchievementCategory.Camp, hidden = false },
-            new AchievementDef { id = "campfire_master",   name = "篝火大师", desc = "篝火维护达到90%最佳区间", icon = "🔥", category = AchievementCategory.Camp, hidden = true },
-            new AchievementDef { id = "radio_lock",        name = "信号猎人", desc = "锁定第一个电台信号",       icon = "📻", category = AchievementCategory.Camp, hidden = false },
-            new AchievementDef { id = "stargazer",         name = "观星者",   desc = "发现第一个星座",           icon = "⭐", category = AchievementCategory.Camp, hidden = false },
-            new AchievementDef { id = "all_constellations", name = "天文学家", desc = "发现全部4个星座",         icon = "🌌", category = AchievementCategory.Camp, hidden = true },
-            new AchievementDef { id = "first_cook",        name = "野外厨师", desc = "第一次烹饪",               icon = "🍲", category = AchievementCategory.Camp, hidden = false },
-
-            // ─── 探索 ───
-            new AchievementDef { id = "first_obstacle", name = "开路先锋",   desc = "清除第一个路障",     icon = "🚧", category = AchievementCategory.Explore, hidden = false },
-            new AchievementDef { id = "obstacle_20",   name = "道路清道夫", desc = "清除20个路障",       icon = "🛤", category = AchievementCategory.Explore, hidden = false },
-            new AchievementDef { id = "obstacle_50",   name = "无畏开拓者", desc = "清除50个路障",       icon = "⚡", category = AchievementCategory.Explore, hidden = true },
-            new AchievementDef { id = "first_resource", name = "拾荒者",    desc = "拾取第一个资源",     icon = "📦", category = AchievementCategory.Explore, hidden = false },
-            new AchievementDef { id = "first_build",   name = "建设者",     desc = "建造第一个设施",     icon = "🏗", category = AchievementCategory.Explore, hidden = false },
-            new AchievementDef { id = "build_all_types", name = "全能建筑师", desc = "建造全部6种设施",   icon = "🏛", category = AchievementCategory.Explore, hidden = true },
-            new AchievementDef { id = "visit_town",    name = "旅人驿站",   desc = "第一次到达小镇",     icon = "🏘", category = AchievementCategory.Explore, hidden = false },
-
-            // ─── 载具 ───
-            new AchievementDef { id = "first_repair",    name = "修理工",   desc = "第一次修理部件",       icon = "🔧", category = AchievementCategory.Vehicle, hidden = false },
-            new AchievementDef { id = "first_upgrade",   name = "改装师",   desc = "第一次升级部件",       icon = "⬆", category = AchievementCategory.Vehicle, hidden = false },
-            new AchievementDef { id = "all_max_level",   name = "完美载具", desc = "所有部件升至最高等级", icon = "💎", category = AchievementCategory.Vehicle, hidden = true },
-            new AchievementDef { id = "survive_low_fuel", name = "最后一滴", desc = "油量低于5%仍行驶1分钟", icon = "⛽", category = AchievementCategory.Vehicle, hidden = true },
-
-            // ─── 收集 ───
-            new AchievementDef { id = "fragment_10", name = "碎片收集者", desc = "发现10个碎片",     icon = "📜", category = AchievementCategory.Collect, hidden = false },
-            new AchievementDef { id = "fragment_30", name = "历史探寻者", desc = "发现30个碎片",     icon = "📖", category = AchievementCategory.Collect, hidden = false },
-            new AchievementDef { id = "fragment_all", name = "完整的记忆", desc = "发现全部碎片",     icon = "🏆", category = AchievementCategory.Collect, hidden = true },
-            new AchievementDef { id = "resource_full", name = "满载而归", desc = "背包载重达到上限", icon = "🎒", category = AchievementCategory.Collect, hidden = false },
-        };
 
         // ── 小镇 ──────────────────────────────────────────────────────────
 
