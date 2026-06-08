@@ -4,6 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: 6195374f1fafb4e10a538fdfff657675
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
-UNITYEOF; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-c8dc9f9ec58444cebb5915f1edf8073e/cwd.txt'; exit "$__tr_native_ec"

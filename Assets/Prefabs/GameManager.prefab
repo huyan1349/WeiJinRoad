@@ -1,0 +1,184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7811967130435680242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8360639335746590125}
+  - component: {fileID: 5145437095215998526}
+  - component: {fileID: 115840975132121443}
+  - component: {fileID: 5250147626768489472}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8360639335746590125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811967130435680242}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5145437095215998526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811967130435680242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696f070911e64487ba5605c73d9a87bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WeiJinRoad.Runtime::WeiJinRoad.Core.GameManager
+  _resources:
+    Metal: 0
+    Wood: 0
+    Fuel: 0
+    Signal: 0
+    Crystal: 0
+  _maxCarry: 40
+  _frontAttachment: 1
+  _vehicleParts: []
+  _clearedObstacles: []
+  _pickedResources: []
+  _currentJourney: 1
+  _builtCamps: []
+  _achievements: []
+  _townVisited: 0
+  _purchasedItems: []
+  _journal: []
+  _discoveredFragmentIds: []
+  _currentChapter: ch1
+  _gamePhase: 0
+  _timeOfDay: 5
+  _isSnowing: 1
+  _brightness: 1
+  _noiseIntensity: 0.02
+  _ambientOcclusion: 0
+  _terrainRenderMode: 0
+  _devPanelVisible: 0
+  _devPostProcessing: 1
+  _devBloom: 1
+  _devShadows: 1
+  _devSnow: 1
+  _devFog: 1
+  _devLights: 1
+  _devParticles: 1
+  _devTireTracks: 1
+  _devGodView: 0
+  _perfStats:
+    Fps: 0
+    FrameMs: 0
+    DrawCalls: 0
+    Triangles: 0
+    Textures: 0
+    Geometries: 0
+  _devTeleportTarget:
+    Serial: 0
+    X: 0
+    Z: 270
+  _headlightsMode: 1
+  _cameraFollow: 1
+  _cameraHeight: 10
+  _cameraDistance: 60
+  _cameraYawOffset: 0
+  _cameraPitchOffset: 0
+  _summitCameraAssistVisible: 0
+  _teleportToLanternVillageSerial: 0
+  _lanternLitProgress: 0
+  _nearLantern: 0
+  _showLargeMap: 0
+  _experimentalTerrain: 0
+  _nearbyResource:
+    Id: 
+    Kind: 0
+    Amount: 0
+    Distance: 0
+  _nearbyInteractable:
+    Id: 
+    Type: 
+    Title: 
+    Hint: 
+    Distance: 0
+    X: 0
+    Y: 0
+    Z: 0
+  _narrativeOverlayVisible: 0
+  _currentNarrativeContent:
+    Title: 
+    Content: 
+    CarrierType: 
+    Chapter: 
+    Biome: 
+  _journalOverlayVisible: 0
+  _camping: 0
+  _campSite:
+    X: 0
+    Z: 0
+    Heading: 0
+  _nearbyStation: 
+  _journeyNotification:
+    From: 0
+    To: 0
+    Message: 
+  _achievementNotification:
+    Id: 
+    Name: 
+    Desc: 
+    Icon: 
+    Category: 0
+    Hidden: 0
+    Unlocked: 0
+    UnlockedAt: 0
+  _nearbyShop: 
+  _vehicleTransient:
+    Position:
+    - 0
+    - 270
+    Heading: 3.1415927
+    Speed: 0
+    SteerRate: 0
+    SearchlightIntensity: 0
+    FullIlluminationIntensity: 0
+--- !u!114 &115840975132121443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811967130435680242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e72f693c483a41178b06c230a124e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WeiJinRoad.Runtime::WeiJinRoad.Core.JourneyManager
+  CheckInterval: 2
+  ObstacleRecords: []
+--- !u!114 &5250147626768489472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811967130435680242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd14cd2669b94af095255fb3688bbf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WeiJinRoad.Runtime::WeiJinRoad.Core.AchievementSystem

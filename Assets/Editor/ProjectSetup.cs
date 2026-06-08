@@ -23,6 +23,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace WeiJinRoad.Editor
 {
@@ -121,7 +122,7 @@ namespace WeiJinRoad.Editor
         /// - 创建 Assets/Settings/ 目录
         /// - 创建 UniversalRenderPipelineAsset
         /// - 创建 UniversalRendererData
-        /// - 设置 GraphicsSettings.currentRenderPipeline
+        /// - 设置 QualitySettings.renderPipeline
         /// - 配置 HDR、MSAA 4x、阴影距离 150、主光阴影分辨率 2048
         /// </summary>
         public static void SetupURP()
@@ -159,8 +160,16 @@ namespace WeiJinRoad.Editor
                 Debug.Log("[ProjectSetup]   URPAsset 已存在，跳过创建");
             }
 
-            // 分配 Renderer Data 到 Pipeline Asset
-            urpAsset.rendererDataList = new ScriptableRendererData[] { rendererData };
+            // 分配 Renderer Data 到 Pipeline Asset（Unity 6: rendererDataList 为只读，需通过 SerializedObject 设置）
+            var urpSO = new SerializedObject(urpAsset);
+            var rendererListProp = urpSO.FindProperty("m_RendererDataList");
+            if (rendererListProp != null)
+            {
+                rendererListProp.arraySize = 1;
+                rendererListProp.GetArrayElementAtIndex(0).objectReferenceValue = rendererData;
+                urpSO.ApplyModifiedProperties();
+                EditorUtility.SetDirty(urpAsset);
+            }
 
             // 设置 UniversalRendererData 的渲染模式为 Forward (Unity 6 / URP 17.x)
             var rendererSO = new SerializedObject(rendererData);
@@ -202,9 +211,9 @@ namespace WeiJinRoad.Editor
             EditorUtility.SetDirty(urpAsset);
             AssetDatabase.SaveAssets();
 
-            // 设置 GraphicsSettings
-            GraphicsSettings.currentRenderPipeline = urpAsset;
-            Debug.Log("[ProjectSetup]   已设置 GraphicsSettings.currentRenderPipeline");
+            // 设置渲染管线（Unity 6: GraphicsSettings.currentRenderPipeline 为只读，使用 QualitySettings.renderPipeline）
+            QualitySettings.renderPipeline = urpAsset;
+            Debug.Log("[ProjectSetup]   已设置 QualitySettings.renderPipeline");
 
             // 刷新 QualitySettings
             int qualityLevelCount = QualitySettings.names.Length;
@@ -277,8 +286,10 @@ namespace WeiJinRoad.Editor
             // 配置字体参数
             fontAsset.name = "zpix SDF";
 
-            // 设置采样点大小
-            fontAsset.faceInfo.pointSize = 42;
+            // 设置采样点大小（faceInfo 是结构体，不能直接修改返回值，需创建新实例赋值）
+            var fi = fontAsset.faceInfo;
+            fi.pointSize = 42;
+            fontAsset.faceInfo = fi;
 
             // 保存图集纹理信息
             var atlasTexture = fontAsset.atlasTexture;
@@ -464,8 +475,8 @@ namespace WeiJinRoad.Editor
 
             EnsureDirectory("Assets/Scenes");
 
-            // 创建新场景
-            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.SingleScene);
+            // 创建新场景（Unity 6: NewSceneMode.SingleScene 已更名为 NewSceneMode.Single）
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             // ── Main Camera ──
             var cameraObj = new GameObject("Main Camera");
@@ -475,7 +486,7 @@ namespace WeiJinRoad.Editor
             camera.allowHDR = true;
             cameraObj.transform.position = new Vector3(20f, 20f, 20f);
             cameraObj.AddComponent<AudioListener>();
-            AddMissingScript<WeiJinRoad.Vehicle.FollowCamera>(cameraObj, "FollowCamera");
+            // FollowCamera 类不存在，相机跟随可通过 Cinemachine 实现
             Debug.Log("[ProjectSetup]   创建 Main Camera");
 
             // ── Directional Light ──
@@ -494,14 +505,14 @@ namespace WeiJinRoad.Editor
             // ── GameManager ──
             var gameManagerObj = new GameObject("GameManager");
             AddMissingScript<WeiJinRoad.Core.GameManager>(gameManagerObj, "GameManager");
-            AddMissingScript<WeiJinRoad.Core.SaveSystem>(gameManagerObj, "SaveSystem");
+            // SaveSystem 是静态类，不能作为 MonoBehaviour 组件挂载
             AddMissingScript<WeiJinRoad.Core.JourneyManager>(gameManagerObj, "JourneyManager");
             AddMissingScript<WeiJinRoad.Core.AchievementSystem>(gameManagerObj, "AchievementSystem");
             Debug.Log("[ProjectSetup]   创建 GameManager");
 
             // ── RoadSpline ──
             var roadSplineObj = new GameObject("RoadSpline");
-            AddMissingScript<WeiJinRoad.World.RoadSpline>(roadSplineObj, "RoadSpline");
+            AddMissingScript<RoadSpline>(roadSplineObj, "RoadSpline");
             Debug.Log("[ProjectSetup]   创建 RoadSpline");
 
             // ── Terrain ──
@@ -797,7 +808,7 @@ namespace WeiJinRoad.Editor
             // 使用 Unity 内置的立方体网格
             var primitive = GameObject.CreatePrimitive(PrimitiveType.Cube);
             var mesh = primitive.GetComponent<MeshFilter>().sharedMesh;
-            DestroyImmediate(primitive);
+            UnityEngine.Object.DestroyImmediate(primitive);
 
             var boxMesh = new Mesh
             {

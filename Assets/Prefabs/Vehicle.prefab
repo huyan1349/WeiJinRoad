@@ -1,0 +1,206 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4325659194256775622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2489058047180644181}
+  - component: {fileID: 3828651906743150612}
+  - component: {fileID: 3691759820488937466}
+  - component: {fileID: 2134315410247736225}
+  m_Layer: 0
+  m_Name: Vehicle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2489058047180644181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4325659194256775622}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7658831178730915035}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3828651906743150612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4325659194256775622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1821e6e009cf41ec8d62c0a3a468eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WeiJinRoad.Runtime::WeiJinRoad.Vehicle.VehicleDamageSystem
+  EngineCondition: 1
+  TiresCondition: 1
+  HeadlightCondition: 1
+  TankCondition: 1
+  BodyCondition: 1
+  RadioCondition: 1
+  Fuel: 100
+  MaxCarry: 100
+--- !u!114 &3691759820488937466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4325659194256775622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930a8cc6084c04a548a1ebdef55eb98c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WeiJinRoad.Runtime::WeiJinRoad.Vehicle.VehicleController
+  VehicleBody: {fileID: 0}
+  FrontLeftWheelGroup: {fileID: 0}
+  FrontRightWheelGroup: {fileID: 0}
+  FrontLeftWheel: {fileID: 0}
+  FrontRightWheel: {fileID: 0}
+  BackLeftWheel: {fileID: 0}
+  BackRightWheel: {fileID: 0}
+  LeftHeadlight: {fileID: 0}
+  RightHeadlight: {fileID: 0}
+  LeftHeadlightTarget: {fileID: 0}
+  RightHeadlightTarget: {fileID: 0}
+  LeftTailLight: {fileID: 0}
+  RightTailLight: {fileID: 0}
+  Searchlight: {fileID: 0}
+  SearchlightTarget: {fileID: 0}
+  SearchlightBodyLight: {fileID: 0}
+  FullIlluminationLight: {fileID: 0}
+  HeadlightEmissiveMat: {fileID: 0}
+  WindowEmissiveMat: {fileID: 0}
+  SearchlightLensMat: {fileID: 0}
+  SearchlightBeamMat: {fileID: 0}
+  LeftTailLightMat: {fileID: 0}
+  RightTailLightMat: {fileID: 0}
+  FollowCamera: {fileID: 0}
+  Paused: 0
+  ForceSearchlight: 0
+  LightsEnabled: 1
+--- !u!114 &2134315410247736225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4325659194256775622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1821e6e009cf41ec8d62c0a3a468eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WeiJinRoad.Runtime::WeiJinRoad.Vehicle.VehicleDamageSystem
+  EngineCondition: 1
+  TiresCondition: 1
+  HeadlightCondition: 1
+  TankCondition: 1
+  BodyCondition: 1
+  RadioCondition: 1
+  Fuel: 100
+  MaxCarry: 100
+--- !u!1 &6322019421134664825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7658831178730915035}
+  - component: {fileID: 5719982355914619340}
+  - component: {fileID: 4194842156358196918}
+  m_Layer: 0
+  m_Name: Body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7658831178730915035
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322019421134664825}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2489058047180644181}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &5719982355914619340
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322019421134664825}
+  m_Mesh: {fileID: 0}
+--- !u!23 &4194842156358196918
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322019421134664825}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}

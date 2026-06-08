@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="WeiJinRoad.Runtime.csproj" />
+  <Project Path="WeiJinRoad.Editor.Tests.csproj" />
+  <Project Path="WeiJinRoad.Editor.csproj" />
+</Solution>

@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7657574780036875226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8596160947743352163}
+  - component: {fileID: 2956713426755847578}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8596160947743352163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657574780036875226}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2956713426755847578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657574780036875226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e52ba5fd3554ac797ecdcc41440b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WeiJinRoad.Runtime::WeiJinRoad.Audio.AudioManager
+  EngineRumbleClip: {fileID: 0}
+  EngineNoiseClip: {fileID: 0}
+  WindClip: {fileID: 0}
+  SearchlightOnClip: {fileID: 0}
+  SearchlightOffClip: {fileID: 0}
+  FullIlluminationClip: {fileID: 0}
+  FragmentDiscoverClip: {fileID: 0}
+  InteractClickClip: {fileID: 0}
+  BrakeClip: {fileID: 0}
+  TreeImpactClip: {fileID: 0}
+  ChapterTransitionClip: {fileID: 0}
+  LowHumClip: {fileID: 0}
+  HeartbeatClip: {fileID: 0}
+  MenuStartClip: {fileID: 0}
+  UIHoverClip: {fileID: 0}
+  UIClickClip: {fileID: 0}
+  BGMClip: {fileID: 0}
+  MasterVolume: 0.8
+  SFXVolume: 1
+  BGMVolume: 0.6
+  EngineIdlePitch: 0.4
+  EngineMaxPitch: 1.6
+  EngineIdleVolume: 0.08
+  EngineMaxVolume: 0.25
+  EngineNoiseIdleVolume: 0.03
+  EngineNoiseMaxVolume: 0.12
+  EngineLerpSpeed: 3
+  WindMinVolume: 0.02
+  WindMaxVolume: 0.15
+  WindLerpSpeed: 1
+  HeartbeatMinBPM: 40
+  HeartbeatMaxBPM: 120
+  HeartbeatHealthThreshold: 0.35
