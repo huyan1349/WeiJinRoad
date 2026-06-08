@@ -22,4 +22,3 @@ namespace WeiJinRoad.Effects
         public void SetVignetteIntensity(float intensity) { vignetteIntensity = intensity; }
     }
 }
-ENDOFFILE; __tr_native_ec=$?; pwd -P >| '/var/folders/vy/3_69xc7918q7spv1v294mr7r0000gn/T/agent-toolhost/jobs/job-56462c82309f4c018b4c382d959042eb/cwd.txt'; exit "$__tr_native_ec"
